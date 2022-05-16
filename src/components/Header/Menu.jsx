@@ -1,10 +1,19 @@
 import React, { useRef, useEffect } from 'react'
-import { useDimensions } from '@utils/hooks/useDimensions'
-import { MenuWrapper, MenuItems, MenuItem } from './Header.styles'
+import { useDimensions, setRefsDimensions } from '@utils/hooks/useDimensions'
+import { motion } from 'framer-motion'
+import {
+  MenuWrapper,
+  MenuItems,
+  MenuItem,
+  MenuBackground,
+} from './Header.styles'
+import MenuAccordion from './MenuAccordion'
+import { childVariants } from '@utils/animation/MenuAnimationVariants'
 
 const menuVariants = {
   open: (height = 1000) => ({
     clipPath: `circle(${height * 2 + 200}px at 30px 30px)`,
+
     transition: {
       type: 'spring',
       stiffness: 20,
@@ -12,8 +21,7 @@ const menuVariants = {
     },
   }),
   closed: {
-    clipPath: 'circle(0px at 30px 30px)',
-
+    clipPath: 'circle(25px at 33px 27px)',
     transition: {
       type: 'spring',
       stiffness: 400,
@@ -22,22 +30,6 @@ const menuVariants = {
   },
 }
 
-const childVariants = {
-  open: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 },
-    },
-  },
-  closed: {
-    y: 100,
-    opacity: 0,
-    transition: {
-      y: { stiffness: 1000 },
-    },
-  },
-}
 const childrenDelay = {
   open: {
     transition: { staggerChildren: 0.07, delayChildren: 0.2 },
@@ -47,8 +39,7 @@ const childrenDelay = {
   },
 }
 
-export default function DesktopMenu() {
-  const items = ['HOME', 'OUR GAMES', 'CREDENTIALS']
+export default function Menu() {
   const containerRef = useRef(null)
   const { height } = useDimensions(containerRef)
 
@@ -59,13 +50,14 @@ export default function DesktopMenu() {
       variants={menuVariants}
       ref={containerRef}
     >
-      <MenuItems variants={childrenDelay}>
-        {items.map((i, index) => (
-          <MenuItem key={index} variants={childVariants}>
-            {i}
-          </MenuItem>
-        ))}
-      </MenuItems>
+      <MenuBackground />
+      <nav>
+        <MenuItems variants={childrenDelay}>
+          <MenuItem variants={childVariants}>HOME</MenuItem>
+          <MenuAccordion />
+          <MenuItem variants={childVariants}>CREDENTIALS</MenuItem>
+        </MenuItems>
+      </nav>
     </MenuWrapper>
   )
 }

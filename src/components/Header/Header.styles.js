@@ -9,6 +9,7 @@ import {
 
 export const HeaderWrapper = styled(Container)`
   position: fixed;
+  z-index: 10;
 `
 
 export const MenuBurgerWrapper = styled(motion.div)`
@@ -18,10 +19,10 @@ export const MenuBurgerWrapper = styled(motion.div)`
   height: 13px;
   position: relative;
   z-index: 10;
+
   &::before,
   &::after {
     transition: 0.3s ease all;
-
     content: '';
     display: block;
     width: 100%;
@@ -30,7 +31,7 @@ export const MenuBurgerWrapper = styled(motion.div)`
     ${props => (props.open ? 'transform: rotate(45deg) translateY(6px);' : '')}
     transform-origin: center;
     position: absolute;
-    background-color: ${props => (props.open ? colors.white : colors.red)};
+    background-color: ${colors.white};
   }
   &::after {
     bottom: 0;
@@ -43,8 +44,9 @@ export const MenuBurgerWrapper = styled(motion.div)`
 
 export const MenuItems = styled(motion.ul)`
   display: flex;
-  margin-top: 75px;
+
   @media screen and (max-width: ${breakpoints.tablet}) {
+    margin-top: 75px;
     flex-direction: column;
   }
 `
@@ -52,8 +54,76 @@ export const MenuItem = styled(motion.li)`
   margin: 10px 0;
   font-weight: 700;
   color: ${colors.white};
-  font-size: ${fontSizes.l};
+  font-size: ${fontSizes.sm};
+  @media screen and (max-width: ${breakpoints.tablet}) {
+    font-size: ${fontSizes.l};
+  }
 `
+export const MenuBackground = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${colors.gray};
+  position: absolute;
+  z-index: -1;
+  left: 100%;
+  top: 0;
+  opacity: 0.4;
+`
+
+export const MenuButton = styled(MenuItem)`
+  position: relative;
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: ${colors.white};
+    position: absolute;
+    right: -30px;
+    border-radius: 3px;
+    transform: ${props => (props.open ? 'rotate(-35deg)' : 'rotate(35deg)')}
+      translateY(-50%);
+    top: 50%;
+    transition: 0.2s ease all;
+  }
+  &::after {
+    right: -45px;
+    transform: ${props => (props.open ? 'rotate(35deg)' : 'rotate(-35deg)')}
+      translateY(-50%);
+  }
+`
+export const MenuAccordionLine = styled.div`
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: calc(100% - 15px);
+  background-color: ${colors.white};
+`
+export const SubMenuItem = styled(motion.li)`
+  padding: 5px;
+  color: ${colors.white};
+  font-size: ${fontSizes.m};
+  position: relative;
+  &::before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 2px;
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: ${colors.white};
+  }
+`
+export const SubMenuItems = styled(motion.ul)`
+  position: relative;
+  margin-left: 30px;
+`
+export const MenuAccordionWrapper = styled(motion.li)``
 export const MenuWrapper = styled(motion.article)`
   position: fixed;
   top: 0;
@@ -61,6 +131,7 @@ export const MenuWrapper = styled(motion.article)`
   width: 100%;
   background-color: ${colors.green};
   padding: 15px;
+
   @media screen and (max-width: ${breakpoints.tablet}) {
     width: 281px;
     height: 100%;

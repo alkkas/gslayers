@@ -9,16 +9,18 @@ export const useDimensions = ref => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
 
   useLayoutEffect(() => {
-    setDimensions({
-      width: ref.current.offsetWidth,
-      height: ref.current.offsetHeight,
-    })
-    window.addEventListener('resize', () => {
+    function setRefDimenstions() {
       setDimensions({
         width: ref.current.offsetWidth,
         height: ref.current.offsetHeight,
       })
-    })
+    }
+    setRefDimenstions()
+    window.addEventListener('resize', setRefDimenstions)
+
+    return function cleanup() {
+      window.removeEventListener('resize', setRefDimenstions)
+    }
   }, [])
 
   return dimensions
