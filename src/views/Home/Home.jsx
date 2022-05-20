@@ -5,6 +5,7 @@ import {
   Button,
   SubTitle,
 } from '@components/common/common.styles'
+
 import {
   HomeContainer,
   HomeHeader,
@@ -23,7 +24,7 @@ import {
   GameButton,
   HomeItemSubTitle,
 } from './Home.styles'
-
+import { Link } from 'react-router-dom'
 import * as Scroll from 'react-scroll'
 
 export default function Home() {
@@ -61,14 +62,18 @@ export default function Home() {
             <HomeItemImg>
               <StyledAliasImg viewBox="0 0 243 170" />
             </HomeItemImg>
-            <GameButton>PLAY</GameButton>
+            <Link to="/alias">
+              <GameButton>PLAY</GameButton>
+            </Link>
           </HomeItem>
           <HomeItem>
             <HomeItemSubTitle>JEOPARDY</HomeItemSubTitle>
             <HomeItemImg>
               <StyledJeopardyImg viewBox="0 0 255 178" />
             </HomeItemImg>
-            <GameButton color="green">PLAY</GameButton>
+            <Link to="/jeopardy">
+              <GameButton color="green">PLAY</GameButton>
+            </Link>
           </HomeItem>
         </HomeItems>
       </HomeMain>

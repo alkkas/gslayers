@@ -1,17 +1,27 @@
-import React from 'react'
-import { Wrapper } from '@components/common/common.styles'
-import { Home } from '@views'
+import React, { useEffect, useState } from 'react'
+import { MainWrapper } from './App.styles'
 import { Header, Footer } from '@components'
 // import { hot } from 'react-hot-loader/root'
-// import { Routes, Route } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 function App() {
+  const location = useLocation()
+  const [backgroud, setBackground] = useState('white')
+
+  useEffect(() => {
+    if (location.pathname == '/alias') {
+      setBackground('purp')
+    } else {
+      setBackground('white')
+    }
+  })
+
   return (
-    <Wrapper>
+    <MainWrapper background={backgroud}>
       <Header />
-      <Home />
+      <Outlet />
       <Footer />
-    </Wrapper>
+    </MainWrapper>
   )
 }
 

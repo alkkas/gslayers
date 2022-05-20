@@ -6,7 +6,7 @@ import {
   Container,
   fontSizes,
 } from '../common/common.styles'
-
+import { Link } from 'react-router-dom'
 export const HeaderWrapper = styled(Container)`
   position: fixed;
   z-index: 10;
@@ -46,15 +46,19 @@ export const MenuItems = styled(motion.ul)`
   display: flex;
 
   @media screen and (max-width: ${breakpoints.tablet}) {
+    & > * {
+      margin: 5px 0;
+    }
     margin-top: 75px;
     flex-direction: column;
   }
 `
-export const MenuItem = styled(motion.li)`
+export const MenuItem = styled(Link)`
   margin: 10px 0;
   font-weight: 700;
   color: ${colors.white};
   font-size: ${fontSizes.sm};
+  text-decoration: none;
   @media screen and (max-width: ${breakpoints.tablet}) {
     font-size: ${fontSizes.l};
   }
@@ -102,11 +106,12 @@ export const MenuAccordionLine = styled.div`
   height: calc(100% - 15px);
   background-color: ${colors.white};
 `
-export const SubMenuItem = styled(motion.li)`
+export const SubMenuItem = styled(Link)`
   padding: 5px;
   color: ${colors.white};
   font-size: ${fontSizes.m};
   position: relative;
+  text-decoration: none;
   &::before {
     content: '';
     display: block;

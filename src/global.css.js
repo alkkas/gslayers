@@ -50,7 +50,9 @@ ul[role='list'],
 ol[role='list'] {
   list-style: none;
 }
-
+a {
+  text-decoration: none;
+}
 /* Set core root defaults */
 html:focus-within {
   scroll-behavior: smooth;

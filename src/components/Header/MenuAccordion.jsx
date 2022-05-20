@@ -31,9 +31,12 @@ export default function MenuAccordion() {
         </MenuButton>
         <SubMenuItems variants={SubMenuVariants}>
           <MenuAccordionLine />
-
-          <SubMenuItem>ALIAS</SubMenuItem>
-          <SubMenuItem>JEOPARDY</SubMenuItem>
+          <li>
+            <SubMenuItem to="/alias">ALIAS</SubMenuItem>
+          </li>
+          <li>
+            <SubMenuItem to="/jeopardy">JEOPARDY</SubMenuItem>
+          </li>
         </SubMenuItems>
       </motion.nav>
     </MenuAccordionWrapper>

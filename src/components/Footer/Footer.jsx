@@ -1,56 +1,49 @@
 import React from 'react'
-import {
-  FooterContainer,
-  FooterWrapper,
-  FooterItem,
-  FooterSubItem,
-  FooterSubTitle,
-  Rights,
-} from './Footer.styles'
+import * as Styles from './Footer.styles'
 
 export default function Footer() {
   return (
-    <FooterWrapper>
-      <FooterContainer>
-        <FooterItem>
-          <FooterSubTitle>Contact us:</FooterSubTitle>
+    <Styles.Wrapper>
+      <Styles.FooterContainer>
+        <Styles.Item>
+          <Styles.FooterSubTitle>Contact us:</Styles.FooterSubTitle>
           <ul>
             <li>
-              <FooterSubItem
+              <Styles.SubItem
                 href="https://github.com/alkkas"
                 github
                 target="_blanck"
               >
                 alkkas
-              </FooterSubItem>
+              </Styles.SubItem>
             </li>
             <li>
-              <FooterSubItem
+              <Styles.SubItem
                 href="https://github.com/xamelllion"
                 github
                 target="_blanck"
               >
                 xamellion
-              </FooterSubItem>
+              </Styles.SubItem>
             </li>
           </ul>
-        </FooterItem>
-        <FooterItem>
-          <FooterSubTitle>Support project:</FooterSubTitle>
+        </Styles.Item>
+        <Styles.Item>
+          <Styles.FooterSubTitle>Support project:</Styles.FooterSubTitle>
           <ul>
             <li>
-              <FooterSubItem
+              <Styles.SubItem
                 coffee
                 target="_blanck"
                 href="https://buymeacoffee.com/gslayers"
               >
                 buy us a coffee
-              </FooterSubItem>
+              </Styles.SubItem>
             </li>
           </ul>
-        </FooterItem>
-      </FooterContainer>
-      <Rights>© All rights received</Rights>
-    </FooterWrapper>
+        </Styles.Item>
+      </Styles.FooterContainer>
+      <Styles.Rights>© All rights received</Styles.Rights>
+    </Styles.Wrapper>
   )
 }

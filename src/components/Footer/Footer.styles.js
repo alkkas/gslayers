@@ -8,12 +8,12 @@ import {
 import coffee from '@assets/img/coffee.png'
 import githubLogo from '@assets/img/github-logo.png'
 
-export const FooterWrapper = styled.footer`
+export const Wrapper = styled.footer`
   border: 1px solid ${colors.green};
   padding: 0 30px;
   background-color: ${colors.green};
 `
-export const FooterItem = styled.article``
+export const Item = styled.article``
 export const FooterContainer = styled(Container)`
   padding: 0;
   display: flex;
@@ -27,7 +27,7 @@ export const FooterSubTitle = styled.h4`
   color: ${colors.white};
   margin-bottom: 10px;
 `
-export const FooterSubItem = styled.a`
+export const SubItem = styled.a`
   display: inline-block;
   margin: 8px 0;
   text-decoration: none;

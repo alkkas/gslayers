@@ -39,7 +39,7 @@ export default function Header() {
       ) : (
         <>
           <MenuBurger toggle={() => toggleOpen()} isOpen={isOpen} />
-          <Menu />
+          <Menu toggle={toggleOpen} />
         </>
       )}
     </HeaderWrapper>

@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { Wrapper } from '@components/common/common.styles'
+import { Wrapper, colors } from '@components/common/common.styles'
 
 export const MainWrapper = styled(Wrapper)`
-  height: 100vh;
+  background-color: ${props => colors[props.background]};
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  align-items: stretch;
+  justify-content: space-between;
 `

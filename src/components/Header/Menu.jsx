@@ -39,9 +39,16 @@ const childrenDelay = {
   },
 }
 
-export default function Menu() {
+export default function Menu({ toggle }) {
   const containerRef = useRef(null)
   const { height } = useDimensions(containerRef)
+
+  //when user clicks menu button, menu closes
+  function handleClick(e) {
+    if (e.target.tagName == 'A') {
+      toggle(0)
+    }
+  }
 
   return (
     <MenuWrapper
@@ -49,13 +56,18 @@ export default function Menu() {
       initial={false}
       variants={menuVariants}
       ref={containerRef}
+      onClick={handleClick}
     >
       <MenuBackground />
       <nav>
         <MenuItems variants={childrenDelay}>
-          <MenuItem variants={childVariants}>HOME</MenuItem>
+          <motion.li variants={childVariants}>
+            <MenuItem to="/">HOME</MenuItem>
+          </motion.li>
           <MenuAccordion />
-          <MenuItem variants={childVariants}>CREDENTIALS</MenuItem>
+          <motion.li variants={childVariants}>
+            <MenuItem to="/">CREDENTIALS</MenuItem>
+          </motion.li>
         </MenuItems>
       </nav>
     </MenuWrapper>
