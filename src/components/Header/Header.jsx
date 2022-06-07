@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { useCycle } from 'framer-motion'
-import { HeaderWrapper } from './Header.styles'
+import { HeaderWrapper, MobileMenuWrapper } from './Header.styles'
 import Menu from './Menu'
 import MenuBurger from './MenuBurger'
-import MenuDesktop from './MenuDesktop'
+import MenuDesktop from './MenuDesktop/MenuDesktop'
 import { motion } from 'framer-motion'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { useSizes } from '@utils/hooks/useSizes'
@@ -34,14 +34,11 @@ export default function Header() {
       as={motion.header}
       animate={isOpen ? 'open' : 'closed'}
     >
-      {value ? (
-        <MenuDesktop />
-      ) : (
-        <>
-          <MenuBurger toggle={() => toggleOpen()} isOpen={isOpen} />
-          <Menu toggle={toggleOpen} />
-        </>
-      )}
+      <MenuDesktop />
+      <MobileMenuWrapper>
+        <MenuBurger toggle={() => toggleOpen()} isOpen={isOpen} />
+        <Menu toggle={toggleOpen} />
+      </MobileMenuWrapper>
     </HeaderWrapper>
   )
 }

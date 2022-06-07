@@ -11,7 +11,11 @@ export const HeaderWrapper = styled(Container)`
   position: fixed;
   z-index: 10;
 `
-
+export const MobileMenuWrapper = styled.div`
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    display: none;
+  }
+`
 export const MenuBurgerWrapper = styled(motion.div)`
   margin-top: 20px;
   display: block;

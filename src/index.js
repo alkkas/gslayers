@@ -5,6 +5,7 @@ import App from './App'
 import GlobalCss from './Global.css'
 import { Routes, Route } from 'react-router-dom'
 import { Home, Alias, Jeopardy } from '@views'
+import './i18nextConf'
 
 ReactDOM.render(
   <BrowserRouter>
@@ -13,7 +14,7 @@ ReactDOM.render(
       <Route path="/" element={<App />}>
         <Route path="alias" element={<Alias />} />
         <Route path="jeopardy" element={<Jeopardy />} />
-        <Route path="" element={<Home />} />
+        <Route path="/" element={<Home />} />
       </Route>
     </Routes>
   </BrowserRouter>,

@@ -15,12 +15,12 @@ export const breakpoints = {
   desktop: '1024px',
 }
 export const fontSizes = {
-  esm: `1rem`,
-  sm: '1.27rem',
-  m: '1.45rem',
-  l: '1.81rem',
-  st: '2.9rem',
-  t: '3.2rem',
+  esm: `1rem`, //11
+  sm: '1.27rem', //14
+  m: '1.45rem', //16
+  l: '1.81rem', //24
+  st: '2.9rem', //32
+  t: '3.2rem', //36
 }
 
 export const Wrapper = styled.section``
@@ -35,7 +35,8 @@ export const Button = styled.button`
   cursor: pointer;
   border: 0;
   color: ${colors.white};
-  background: ${props => (props.background ? props.background : colors.orange)};
+  background: ${props =>
+    props.background ? colors[props.background] : colors.orange};
   border-radius: 5px;
   font-size: ${fontSizes.l};
   padding: 10px 25px;

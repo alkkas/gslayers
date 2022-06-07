@@ -4,7 +4,6 @@ import {
   colors,
   fontSizes,
   Title,
-  MediumText,
 } from '../../components/common/common.styles'
 
 export const AliasWrapper = styled(Wrapper)`

@@ -53,6 +53,9 @@ export const PlayerItem = styled.div`
   background-color: rgba(252, 197, 102, ${props => (props.empty ? 0.5 : 1)});
   margin: 11px 0;
   border-radius: 5px;
+  div {
+    color: ${colors.red};
+  }
   span {
     opacity: ${props => (props.empty ? 0.5 : 1)};
     font-size: ${fontSizes.sm};
@@ -119,4 +122,19 @@ export const PlayersItem = styled.div`
   background-color: ${colors.lightRed};
   margin: 13px 0;
   text-align: center;
+`
+
+export const RoundStartTitle = styled.section`
+  display: flex;
+  justify-content: space-between;
+  span {
+    font-size: ${fontSizes.m};
+    color: ${colors.white};
+  }
+  div {
+    color: ${colors.red};
+    padding: 7px 9px;
+    border-radius: 50px;
+    background-color: ${colors.white};
+  }
 `

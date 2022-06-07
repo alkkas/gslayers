@@ -68,3 +68,22 @@ export const PlusButton = styled(MinusButton)`
     transform: translate(-50%, -50%) rotate(90deg);
   }
 `
+export const GenerateLinkBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: ${colors.red};
+  font-size: ${fontSizes.l};
+  text-transform: uppercase;
+  color: ${colors.white};
+  padding: 15px 0;
+  font-weight: 700;
+  width: 100%;
+  border: 0px;
+  margin-bottom: 80px;
+  position: relative;
+  img {
+    margin-top: -3px;
+  }
+`

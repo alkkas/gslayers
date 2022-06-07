@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { fontSizes, colors } from '@components/common/common.styles'
 
 export const InfoContainer = styled.article`
-  margin: 7px 0;
+  margin: 15px 0;
   display: flex;
   align-items: center;
   background-color: ${props => colors[props.color]};

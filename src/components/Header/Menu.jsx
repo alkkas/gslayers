@@ -9,6 +9,7 @@ import {
 } from './Header.styles'
 import MenuAccordion from './MenuAccordion'
 import { childVariants } from '@utils/animation/MenuAnimationVariants'
+import ChangeLang from './ChangeLang/ChangeLang'
 
 const menuVariants = {
   open: (height = 1000) => ({
@@ -70,6 +71,7 @@ export default function Menu({ toggle }) {
           </motion.li>
         </MenuItems>
       </nav>
+      <ChangeLang />
     </MenuWrapper>
   )
 }
