@@ -6,13 +6,12 @@ import AliasUi from './AliasUi'
 import Game from './Game/Game'
 import GameStart from './GameStart/GameStart'
 import WinScreen from './WinScreen/WinScreen'
-export default function Alias() {
-  let [status, setStatus] = useState('loading')
 
-  useEffect(() => {
-    //ask server for lobby
-    setStatus('win')
-  })
+import { useSelector } from 'react-redux'
+
+export default function Alias() {
+  const status = useSelector(state => state.alias.status)
+
   function renderState() {
     switch (status) {
       case 'loading':

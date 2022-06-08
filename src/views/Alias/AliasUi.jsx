@@ -6,6 +6,7 @@ import PlayerUi from './Player/PlayerUi'
 export default function AliasUi() {
   let [searchParams, setSearchParams] = useSearchParams()
   let [status, setStatus] = useState('player')
+
   function renderBlocks() {
     switch (status) {
       case 'player':

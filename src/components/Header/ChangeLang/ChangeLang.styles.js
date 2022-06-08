@@ -7,13 +7,14 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
   &::before {
     content: '';
     width: 2px;
     height: 70%;
     background-color: ${colors.orange};
-
     position: absolute;
     top: 50%;
     left: calc(50% + 2px);
