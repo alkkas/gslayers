@@ -5,7 +5,9 @@ import {
   LargeText,
   SubTitle,
   Button,
+  breakpoints,
 } from '@components/common/common.styles'
+
 import styled from 'styled-components'
 import ScrollIcon from '@assets/img/HomeScroll.svg'
 import AliasImg from '@assets/img/AliasImg.svg'
@@ -13,13 +15,14 @@ import JeopardyImg from '@assets/img/JeopardyImg.svg'
 
 export const StyledScrollIcon = styled(ScrollIcon)`
   display: block;
+  @media screen and (min-width: ${breakpoints.desktop}) {
+    transform: scale(1.5);
+  }
 `
 export const HomeContainer = styled(Container)`
   padding: 0 30px;
-  position: relative;
-  z-index: 5;
-  overflow: hidden;
 `
+
 export const Symbol = styled.span`
   z-index: -1;
   font-size: 512px;
@@ -30,8 +33,15 @@ export const Symbol = styled.span`
   right: ${props => props.right}px;
   top: ${props => props.top}px;
   left: ${props => props.left}px;
-
+  @media screen and (max-width: ${breakpoints.desktop}) {
+  }
   opacity: 0.12;
+`
+
+export const HomeWrapper = styled.section`
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
 `
 export const HomeText = styled.section`
   flex-grow: 1;
@@ -66,16 +76,24 @@ export const HomeSubTitle = styled(LargeText)`
 export const HomeMainTitle = styled(SubTitle)`
   color: ${colors.orange};
   text-align: center;
-  margin-top: 88px;
+  margin: 88px 0 30px;
 `
-export const HomeItemSubTitle = styled(SubTitle)`
+export const HomeItemSubTitle = styled(LargeText)`
   color: ${colors.white};
   font-weight: 900;
 `
-export const HomeItems = styled.ul``
+export const HomeItems = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 360px));
+  gap: 27px;
+  justify-content: center;
+  margin-bottom: 45px;
+  @media screen and (min-width: ${breakpoints.desktop}) {
+    margin-bottom: 80px;
+  }
+`
 export const HomeItem = styled.li`
   padding: 15px;
-  margin: 45px 0;
   background-color: ${colors.purp};
 `
 export const HomeItemImg = styled.div`

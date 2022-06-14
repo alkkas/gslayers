@@ -23,22 +23,22 @@ import {
   Symbol,
   GameButton,
   HomeItemSubTitle,
+  HomeWrapper,
 } from './Home.styles'
 import { Link } from 'react-router-dom'
 import * as Scroll from 'react-scroll'
 
 export default function Home() {
   return (
-    <section>
+    <HomeWrapper>
+      <Symbol right={-60} top={-50} color="purp">
+        ?
+      </Symbol>
+
+      <Symbol left={-60} top={300} color="red">
+        &
+      </Symbol>
       <HomeContainer>
-        <Symbol right={-60} top={-50} color="purp">
-          ?
-        </Symbol>
-
-        <Symbol left={-60} top={300} color="red">
-          &
-        </Symbol>
-
         <HomeHeader as="header">
           <HomeText>
             <HomeTitle>
@@ -79,6 +79,6 @@ export default function Home() {
           </HomeItems>
         </HomeMain>
       </HomeContainer>
-    </section>
+    </HomeWrapper>
   )
 }

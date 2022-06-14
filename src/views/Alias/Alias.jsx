@@ -8,9 +8,10 @@ import GameStart from './GameStart/GameStart'
 import WinScreen from './WinScreen/WinScreen'
 
 import { useSelector } from 'react-redux'
+import { selectStatus } from '@store/alias/aliasSlice'
 
 export default function Alias() {
-  const status = useSelector(state => state.alias.status)
+  const status = useSelector(selectStatus)
 
   function renderState() {
     switch (status) {
@@ -28,10 +29,6 @@ export default function Alias() {
         return <Error info="you encountered with troubles!" />
     }
   }
-  // usePrompt(
-  //   'Are you sure you want to leave?',
-  //   status === 'player' || status === 'admin'
-  // )
 
   return (
     <>

@@ -6,7 +6,9 @@ import {
   MenuItems,
   MenuItem,
   MenuBackground,
+  Creds,
 } from './Header.styles'
+import * as Scroll from 'react-scroll'
 import MenuAccordion from './MenuAccordion'
 import { childVariants } from '@utils/animation/MenuAnimationVariants'
 import ChangeLang from './ChangeLang/ChangeLang'
@@ -67,7 +69,9 @@ export default function Menu({ toggle }) {
           </motion.li>
           <MenuAccordion />
           <motion.li variants={childVariants}>
-            <MenuItem to="/">CREDENTIALS</MenuItem>
+            <Creds onClick={Scroll.animateScroll.scrollToBottom}>
+              CREDENTIALS
+            </Creds>
           </motion.li>
         </MenuItems>
       </nav>

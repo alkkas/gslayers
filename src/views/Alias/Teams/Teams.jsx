@@ -6,7 +6,7 @@ export default function enhancedTeams(Component) {
     return (
       <Styles.TeamsWrapper>
         <Styles.TeamsTitle>teams</Styles.TeamsTitle>
-        <Component admin={props.admin} />
+        <Component {...props} />
       </Styles.TeamsWrapper>
     )
   }

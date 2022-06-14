@@ -2,27 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import AdminUi from './Admin/AdminUi'
 import PlayerUi from './Player/PlayerUi'
+import { setRules } from '@store/alias/aliasSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function AliasUi() {
   let [searchParams, setSearchParams] = useSearchParams()
-  let [status, setStatus] = useState('player')
+  const admin = useSelector(state => state.alias.admin)
+  const dispatch = useDispatch()
 
-  function renderBlocks() {
-    switch (status) {
-      case 'player':
-        return <PlayerUi />
-      case 'admin':
-        return <AdminUi />
-    }
-  }
   useEffect(() => {
     if (searchParams.get('key')) {
       //send request to server ask if session exist
-      setStatus('player')
+      dispatch(setRules(false))
     } else {
-      setStatus('admin')
+      dispatch(setRules(true))
     }
   })
 
-  return <div>{renderBlocks()}</div>
+  return <div>{admin ? <AdminUi /> : <PlayerUi />}</div>
 }

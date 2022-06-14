@@ -18,7 +18,8 @@ export const FooterContainer = styled(Container)`
   padding: 0;
   display: flex;
   margin-top: 35px;
-  justify-content: space-between;
+  justify-content: space-evenly;
+
   align-items: flex-start;
 `
 export const FooterSubTitle = styled.h4`
@@ -34,6 +35,9 @@ export const SubItem = styled.a`
   font-size: ${fontSizes.sm};
   font-weight: 300;
   color: ${colors.white};
+  &:hover {
+    text-decoration: underline;
+  }
   &::after {
     content: url(${props => (props.github ? githubLogo : coffee)});
     margin-left: 5px;

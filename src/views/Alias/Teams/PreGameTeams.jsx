@@ -1,59 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as Styles from './Teams.styles'
+import { useDispatch, useSelector } from 'react-redux/es/exports'
+import { selectAllPlayers } from '@/store/alias/aliasSlice'
+import TeamsAdmin from './TeamsAdmin'
+import TeamsPlayers from './TeamsPlayers'
+import { addTeam } from '@store/alias/aliasSlice'
 
 export default function PreGameTeams({ admin }) {
-  const teams = {
-    winners: {
-      points: 30,
-      players: ['player1', 'player2'],
-      guessing: 'player1',
-      explaining: 'player2',
-    },
-    losers: {
-      points: 20,
-      players: ['player1', 'player2'],
-      guessing: 'player1',
-      explaining: 'player2',
-    },
-  }
+  const players = useSelector(selectAllPlayers)
+  const dispatch = useDispatch()
+
   return (
-    <div>
-      {admin
-        ? Object.entries(teams).map(([name, values]) => {
-            return (
-              <Styles.TeamItem>
-                <Styles.TeamTitle value={name} placeholder="name..." />
-                {values.players.map(i => {
-                  return (
-                    <Styles.PlayerItem>
-                      <span>{i}</span>
-                      <Styles.PlayerRemove />
-                    </Styles.PlayerItem>
-                  )
-                })}
-              </Styles.TeamItem>
-            )
-          })
-        : Object.entries(teams).map(([name, values]) => {
-            return (
-              <Styles.TeamItem>
-                <Styles.TeamTitle value={name} placeholder="name..." />
-                {values.players.map(i => {
-                  return (
-                    <Styles.PlayerItem>
-                      <span>{i}</span>
-                    </Styles.PlayerItem>
-                  )
-                })}
-              </Styles.TeamItem>
-            )
-          })}
-      {admin ? <Styles.AddTeam>add</Styles.AddTeam> : null}
+    <>
+      {console.log(players)}
+      <TeamsAdmin />
+      <Styles.AddTeam onClick={() => dispatch(addTeam())}>add</Styles.AddTeam>
       <Styles.PlayersTitle>players:</Styles.PlayersTitle>
       <Styles.AvailablePlayers>
-        <Styles.PlayersItem>player 1</Styles.PlayersItem>
-        <Styles.PlayersItem>player 2</Styles.PlayersItem>
+        {players.map(i => {
+          if (i.status === 'available') {
+            return <Styles.PlayersItem key={i.id}>{i.name}</Styles.PlayersItem>
+          }
+        })}
       </Styles.AvailablePlayers>
-    </div>
+    </>
   )
 }

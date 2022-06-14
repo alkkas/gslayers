@@ -128,6 +128,16 @@ export const SubMenuItem = styled(Link)`
     background-color: ${colors.white};
   }
 `
+export const Creds = styled.a`
+  margin: 10px 0;
+  font-weight: 700;
+  color: ${colors.white};
+  font-size: ${fontSizes.sm};
+  text-decoration: none;
+  @media screen and (max-width: ${breakpoints.tablet}) {
+    font-size: ${fontSizes.l};
+  }
+`
 export const SubMenuItems = styled(motion.ul)`
   position: relative;
   margin-left: 30px;

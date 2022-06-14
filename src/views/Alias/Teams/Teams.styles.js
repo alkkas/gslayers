@@ -106,12 +106,11 @@ export const AddTeam = styled.button`
   background-color: ${colors.purp};
   border: 0;
 `
-export const AvailablePlayers = styled.div`
-  margin-top: 30px;
-`
+export const AvailablePlayers = styled.div``
 
 export const PlayersTitle = styled(MediumText)`
   text-align: center;
+  margin: 30px 0 10px;
 `
 
 export const PlayersItem = styled.div`
