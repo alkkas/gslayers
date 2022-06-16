@@ -10,7 +10,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css'
 export default function MenuDesktop() {
   return (
     <Styles.Wrapper>
-      <Container>
+      <Styles.MenuContainer>
         <Styles.Items>
           <ul>
             <li>
@@ -40,7 +40,7 @@ export default function MenuDesktop() {
             </li>
           </ul>
         </Styles.Items>
-      </Container>
+      </Styles.MenuContainer>
     </Styles.Wrapper>
   )
 }

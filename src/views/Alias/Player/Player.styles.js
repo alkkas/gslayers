@@ -1,5 +1,9 @@
 import styled from 'styled-components'
-import { fontSizes, colors } from '@components/common/common.styles'
+import {
+  fontSizes,
+  colors,
+  breakpoints,
+} from '@components/common/common.styles'
 
 export const InfoContainer = styled.article`
   margin: 15px 0;
@@ -7,7 +11,7 @@ export const InfoContainer = styled.article`
   align-items: center;
   background-color: ${props => colors[props.color]};
   border-radius: 5px;
-
+  flex-grow: 1;
   h2,
   span {
     font-size: ${fontSizes.l};
@@ -23,7 +27,18 @@ export const InfoContainer = styled.article`
     border-radius: 0 5px 5px 0;
     background-color: ${colors.green};
     padding: 15px;
-    width: 75px;
+    width: 100px;
     text-align: center;
+    @media screen and (min-width: ${breakpoints.tablet}) {
+      width: auto;
+    }
+  }
+`
+export const infoWrapper = styled.section`
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    gap: 30px;
+    display: flex;
+    justify-content: center;
+    align-item: center;
   }
 `

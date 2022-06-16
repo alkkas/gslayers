@@ -6,6 +6,7 @@ import {
   SubTitle,
   Button,
   breakpoints,
+  fontSizes,
 } from '@components/common/common.styles'
 
 import styled from 'styled-components'
@@ -79,6 +80,7 @@ export const HomeMainTitle = styled(SubTitle)`
   margin: 88px 0 30px;
 `
 export const HomeItemSubTitle = styled(LargeText)`
+  font-size: 1.9rem;
   color: ${colors.white};
   font-weight: 900;
 `
@@ -102,8 +104,9 @@ export const HomeItemImg = styled.div`
   margin: 15px auto 23px;
 `
 export const GameButton = styled(Button)`
+  font-size: ${fontSizes.m};
   display: block;
-  padding: 10px 70px;
+  padding: 5px 60px;
   margin: 0 auto;
   background-color: ${props => colors[props.color || 'orange']};
 `

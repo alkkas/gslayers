@@ -12,10 +12,9 @@ export default function PreGameTeams({ admin }) {
 
   return (
     <>
-      {console.log(players)}
       <TeamsAdmin />
       <Styles.AddTeam onClick={() => dispatch(addTeam())}>add</Styles.AddTeam>
-      <Styles.PlayersTitle>players:</Styles.PlayersTitle>
+      <Styles.PlayersTitle>available players:</Styles.PlayersTitle>
       <Styles.AvailablePlayers>
         {players.map(i => {
           if (i.status === 'available') {

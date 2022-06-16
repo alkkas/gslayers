@@ -9,7 +9,7 @@ const defaultStyles = css`
   }
 
   :root {
-    font-size: calc(0.6875rem + ((1vw - 3.2px) * 1.2784));
+    font-size: calc(0.75rem + ((1vw - 3.2px) * 0.5682));
     @media (min-width: ${breakpoints.desktop}) {
       font-size: 16px;
     }

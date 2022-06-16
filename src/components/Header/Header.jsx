@@ -13,7 +13,7 @@ export default function Header() {
   const [isOpen, toggleOpen] = useCycle(false, true)
   const containerRef = useRef(null)
   const { width } = useSizes()
-  const value = width > parseFloat(breakpoints.tablet)
+  const value = width > parseFloat(breakpoints.desktop)
 
   useEffect(() => {
     if (isOpen) {

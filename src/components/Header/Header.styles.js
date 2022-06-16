@@ -12,7 +12,7 @@ export const HeaderWrapper = styled(Container)`
   z-index: 10;
 `
 export const MobileMenuWrapper = styled.div`
-  @media screen and (min-width: ${breakpoints.tablet}) {
+  @media screen and (min-width: ${breakpoints.desktop}) {
     display: none;
   }
 `
@@ -41,7 +41,7 @@ export const MenuBurgerWrapper = styled(motion.div)`
     bottom: 0;
     ${props => (props.open ? 'transform:rotate(-45deg) translateY(-6px);' : '')}
   }
-  @media screen and (min-width: ${breakpoints.tablet}) {
+  @media screen and (min-width: ${breakpoints.desktop}) {
     display: none;
   }
 `
@@ -49,7 +49,7 @@ export const MenuBurgerWrapper = styled(motion.div)`
 export const MenuItems = styled(motion.ul)`
   display: flex;
 
-  @media screen and (max-width: ${breakpoints.tablet}) {
+  @media screen and (max-width: ${breakpoints.desktop}) {
     & > * {
       margin: 5px 0;
     }
@@ -63,7 +63,7 @@ export const MenuItem = styled(Link)`
   color: ${colors.white};
   font-size: ${fontSizes.sm};
   text-decoration: none;
-  @media screen and (max-width: ${breakpoints.tablet}) {
+  @media screen and (max-width: ${breakpoints.desktop}) {
     font-size: ${fontSizes.l};
   }
 `
@@ -134,7 +134,7 @@ export const Creds = styled.a`
   color: ${colors.white};
   font-size: ${fontSizes.sm};
   text-decoration: none;
-  @media screen and (max-width: ${breakpoints.tablet}) {
+  @media screen and (max-width: ${breakpoints.desktop}) {
     font-size: ${fontSizes.l};
   }
 `
@@ -151,7 +151,7 @@ export const MenuWrapper = styled(motion.article)`
   background-color: ${colors.green};
   padding: 15px;
 
-  @media screen and (max-width: ${breakpoints.tablet}) {
+  @media screen and (max-width: ${breakpoints.desktop}) {
     width: 281px;
     height: 100%;
   }

@@ -3,6 +3,7 @@ import {
   breakpoints,
   colors,
   fontSizes,
+  Container,
 } from '@components/common/common.styles'
 import { Link } from 'react-router-dom'
 import { Menu as MenuInner } from '@szhsin/react-menu'
@@ -13,6 +14,9 @@ import {
   menuDividerSelector,
 } from '@szhsin/react-menu/style-utils'
 
+export const MenuContainer = styled(Container)`
+  max-width: 768px;
+`
 const itemCss = css`
   color: ${colors.white};
   font-size: ${fontSizes.sm};
@@ -56,7 +60,7 @@ export const Wrapper = styled.section`
   background-color: ${colors.green};
   padding: 15px 0;
 
-  @media screen and (max-width: ${breakpoints.tablet}) {
+  @media screen and (max-width: ${breakpoints.desktop}) {
     display: none;
   }
 `

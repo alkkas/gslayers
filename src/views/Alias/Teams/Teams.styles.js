@@ -4,6 +4,8 @@ import {
   LargeText,
   fontSizes,
   MediumText,
+  breakpoints,
+  Button,
 } from '@components/common/common.styles'
 export const TeamsWrapper = styled.article`
   margin: 30px 0;
@@ -26,8 +28,19 @@ export const TeamItem = styled.div`
   border: 1px solid ${colors.white};
   border-radius: 5px;
   margin: 30px 0;
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    margin: 0;
+  }
 `
-
+export const TeamItems = styled.div`
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+  }
+`
 export const TeamTitle = styled.input`
   text-align: center;
   color: ${colors.white};
@@ -50,6 +63,7 @@ export const PlayerItem = styled.div`
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: rgba(252, 197, 102, ${props => (props.empty ? 0.5 : 1)});
   margin: 11px 0;
   border-radius: 5px;
@@ -69,6 +83,7 @@ export const PlayerJoin = styled.div`
   position: relative;
   border-radius: 5px;
 
+  cursor: pointer;
   &::before,
   &::after {
     content: '';
@@ -96,7 +111,8 @@ export const PlayerRemove = styled(PlayerJoin)`
     transform: translate(-50%, -50%) rotate(-45deg);
   }
 `
-export const AddTeam = styled.button`
+export const AddTeam = styled(Button)`
+  display: block;
   font-size: ${fontSizes.sm};
   color: ${colors.white};
   text-transform: uppercase;
@@ -104,9 +120,21 @@ export const AddTeam = styled.button`
   font-weight: 700;
   width: 100%;
   background-color: ${colors.purp};
-  border: 0;
+
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    width: 60%;
+    margin: 30px auto 0;
+  }
 `
-export const AvailablePlayers = styled.div``
+export const AvailablePlayers = styled.div`
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-item: center;
+  }
+`
 
 export const PlayersTitle = styled(MediumText)`
   text-align: center;
@@ -121,6 +149,9 @@ export const PlayersItem = styled.div`
   background-color: ${colors.lightRed};
   margin: 13px 0;
   text-align: center;
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    margin: 0;
+  }
 `
 
 export const RoundStartTitle = styled.section`

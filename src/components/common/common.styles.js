@@ -11,16 +11,16 @@ export const colors = {
 }
 export const breakpoints = {
   phone: '360px',
-  tablet: '768px',
-  desktop: '1024px',
+  tablet: '572px',
+  desktop: '768px',
 }
 export const fontSizes = {
   esm: `1rem`, //11
-  sm: '1.27rem', //14
-  m: '1.45rem', //16
-  l: '1.81rem', //24
-  st: '2.9rem', //32
-  t: '3.2rem', //36
+  sm: '1.1rem', //14
+  m: '1.3rem', //16
+  l: '1.6rem', //24
+  st: '2.7rem', //32
+  t: '3rem', //36
 }
 
 export const Wrapper = styled.section``
@@ -51,7 +51,12 @@ export const Button = styled.button`
     transform: translate(0, 0);
   }
 `
-
+export const AliasUiContainer = styled(Container)`
+  max-width: 572px;
+  @media screen and (min-width: ${breakpoints.desktop}) {
+    max-width: 768px;
+  }
+`
 export const createMedia = (
   cssProp, // the CSS property to apply to the breakpoints
   values = [], // array of objects, e.g. [{ 800: 60 }, ...] <-- 800 (key) = screen breakpoint, 60 (value) = CSS prop breakpoint

@@ -41,7 +41,7 @@ const initialState = aliasAdapter.getInitialState({
   settings: {
     points: 30,
     time: 30,
-    mode: 'hard',
+    mode: 'medium',
   },
   teams: [
     {
@@ -134,6 +134,7 @@ const aliasSlice = createSlice({
     teamLeave(state, action) {
       const { teamIndex, playerIndex } = action.payload
       const playerId = state.teams[teamIndex].players[playerIndex]
+      console.log(playerId)
       state.teams[teamIndex].players[playerIndex] = null
       aliasAdapter.updateOne(state, {
         id: playerId,
