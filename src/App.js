@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { MainWrapper } from './App.styles'
-import { Header, Footer } from '@components'
-// import { hot } from 'react-hot-loader/root'
-import { Outlet, useLocation } from 'react-router-dom'
-import { store } from '@store/store'
-import { fetchPlayers } from '@store/alias/aliasSlice'
+import * as React from 'react'
 
-function App() {
-  const location = useLocation()
-  const [backgroud, setBackground] = useState('white')
+import { BrowserRouter } from 'react-router-dom'
+import Main from './Main'
+import GlobalCss from './Global.css'
+import { Routes, Route } from 'react-router-dom'
+import { Home, Alias, Jeopardy } from '@views'
+import { store } from './store/store'
+import { Provider } from 'react-redux'
 
-  useEffect(() => {
-    store.dispatch(fetchPlayers())
-    if (location.pathname == '/alias') {
-      setBackground('purp')
-    } else {
-      setBackground('white')
-    }
-  })
-
+export default function App() {
   return (
-    <MainWrapper background={backgroud}>
-      <Header />
-      <Outlet />
-      <Footer />
-    </MainWrapper>
+    <React.StrictMode>
+      <Provider store={store}>
+        <BrowserRouter>
+          <GlobalCss />
+          <Routes>
+            <Route path="/" element={<Main />}>
+              <Route path="alias" element={<Alias />} />
+              <Route path="jeopardy" element={<Jeopardy />} />
+              <Route path="/" element={<Home />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </React.StrictMode>
   )
 }
-
-export default App

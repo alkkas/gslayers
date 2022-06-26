@@ -13,7 +13,9 @@ import {
   timeChange,
   pointsChange,
   modeChange,
+  linkChange,
 } from '@store/alias/aliasSlice'
+import { sendReq } from '@services/alias/sendReq'
 
 const AdminTeams = enhancedTeams(PreGameTeams)
 
@@ -24,19 +26,14 @@ export default function AdminUi() {
   const dispatch = useDispatch()
 
   async function createLobby() {
-    const response = await fetch('http://26.71.3.113:8000/api/gen/', {
-      method: 'POST',
-      mode: 'cors',
-      body: JSON.stringify(preGameSettings),
-    })
-    console.log(response)
-    if (response.status === 404) {
-      dispatch(statusChange('error'))
-    } else {
-      const data = await response.json()
-      console.log(data)
-    }
+    const data = await sendReq(
+      'http://26.71.3.113:8000/api/createLink/',
+      preGameSettings
+    )
+    dispatch(linkChange(data.lobbyId))
+    console.log(data)
   }
+
   return (
     <AliasUiContainer>
       <Styles.AdminGroup>
@@ -66,6 +63,10 @@ export default function AdminUi() {
         <span>generate link</span>
         <img src={LinkImg} alt="link symbol" />
       </Styles.GenerateLinkBtn>
+      <Styles.LinkField>
+        <input />
+        <button></button>
+      </Styles.LinkField>
     </AliasUiContainer>
   )
 }

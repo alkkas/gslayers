@@ -17,7 +17,7 @@ export default function PreGameTeams({ admin }) {
       <Styles.PlayersTitle>available players:</Styles.PlayersTitle>
       <Styles.AvailablePlayers>
         {players.map(i => {
-          if (i.status === 'available') {
+          if (!i.team) {
             return <Styles.PlayersItem key={i.id}>{i.name}</Styles.PlayersItem>
           }
         })}

@@ -64,7 +64,16 @@ export const AdminGroup = styled.div`
     }
   }
 `
-
+export const LinkField = styled.section`
+  input {
+  }
+  button {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: ${colors.red};
+  }
+`
 export const MinusButton = styled.div`
   cursor: pointer;
   position: relative;

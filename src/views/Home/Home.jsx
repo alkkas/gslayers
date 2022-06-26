@@ -1,4 +1,6 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+import i18next from '../../i18n'
 import {
   Container,
   Title,
@@ -29,6 +31,8 @@ import { Link } from 'react-router-dom'
 import * as Scroll from 'react-scroll'
 
 export default function Home() {
+  const { t } = useTranslation()
+
   return (
     <HomeWrapper>
       <Symbol right={-60} top={-50} color="purp">
@@ -47,7 +51,7 @@ export default function Home() {
             </HomeTitle>
             <HomeSubTitle>laugh and joy</HomeSubTitle>
             <Scroll.Link to="games">
-              <Button>OUR GAMES</Button>
+              <Button>{t('games')}</Button>
             </Scroll.Link>
           </HomeText>
           <StyledScrollIcon />
