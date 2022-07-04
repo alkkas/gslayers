@@ -41,7 +41,9 @@ dl,
 dd {
   margin: 0;
 }
-
+button {
+  cursor: pointer;
+}
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul {
   list-style-type: none;

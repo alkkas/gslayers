@@ -1,7 +1,7 @@
 import getRandomInt from '@utils/helpers/random'
 
 export const getCoords = (width, height, words) => {
-  words = words.slice(0, 15)
+  words = words.slice(0, 70)
   const diff = 1.55
   const coords = []
 
@@ -15,7 +15,7 @@ export const getCoords = (width, height, words) => {
       y: getRandomInt(0, height),
       fontSize,
       opacity: getRandomInt(40, 70) / 100,
-      width: (i.length * fontSize) / diff + 10,
+      width: (i.length * fontSize) / diff + 20,
     }
     const dimensions =
       newWord.x + newWord.width < width && newWord.y + newWord.fontSize < height

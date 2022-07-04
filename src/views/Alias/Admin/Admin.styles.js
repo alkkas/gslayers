@@ -6,6 +6,7 @@ import {
   breakpoints,
   Button,
 } from '@components/common/common.styles'
+import { keyframes } from 'styled-components'
 
 export const EditContainer = styled.article`
   padding: 25px;
@@ -64,14 +65,73 @@ export const AdminGroup = styled.div`
     }
   }
 `
+
+const copyAnimation = keyframes`
+0% {opacity: 0;}
+10% {opacity: 1;}
+90% { opacity: 1;}
+100% {opacity: 0;}
+`
+
 export const LinkField = styled.section`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  position: relative;
+  @media screen and (min-width: ${breakpoints.desktop}) {
+    width: 60%;
+    margin: 0 auto 60px;
+  }
+  &::before {
+    content: 'copied to clipboard';
+    text-align: center;
+    color: ${colors.white};
+    display: inline-block;
+    width: 100%;
+    padding: 3px 0;
+    background: ${colors.orange};
+    border-radius: 0 0 5px 5px;
+    font-size: 13px;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+    opacity: 0;
+
+    animation-name: ${props => (props.animate ? copyAnimation : 'null')};
+    animation-duration: 2.5s;
+    animation-iteration-count: 1;
+  }
   input {
+    border-radius: 5px 0 0 0;
+    flex-grow: 1;
+    font-size: ${fontSizes.l};
+    border: 2px solid ${colors.red};
+    background: transparent;
+    color: ${colors.white};
+    padding: 3px 0 3px 10px;
   }
   button {
-    display: block;
+    border-radius: 0 5px 0 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 0;
     width: 50px;
     height: 50px;
     background-color: ${colors.red};
+    transition: 0.2s ease all;
+    &:hover {
+      transform: translate(3px, -3px);
+    }
+    &:active {
+      transform: translate(0, 0);
+    }
+    div {
+      width: 20px;
+      height: 20px;
+    }
   }
 `
 export const MinusButton = styled.div`
@@ -100,38 +160,5 @@ export const PlusButton = styled(MinusButton)`
 
   &::after {
     transform: translate(-50%, -50%) rotate(90deg);
-  }
-`
-export const GenerateLinkBtn = styled(Button)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background-color: ${colors.red};
-  font-size: ${fontSizes.l};
-  text-transform: uppercase;
-  color: ${colors.white};
-  padding: 15px 0;
-  font-weight: 700;
-  width: 100%;
-  margin-bottom: 80px;
-  position: relative;
-  &::before {
-    content: 'lobby created & link copied';
-    display: block;
-    width: 100%;
-    padding: 2px 0;
-    background-color: ${colors.orange};
-    color: ${colors.red};
-    font-size: ${fontSizes.esm};
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: translateY(100%);
-    border-radius: 0 0 3px 3px;
-  }
-  img {
-    margin-top: -3px;
   }
 `

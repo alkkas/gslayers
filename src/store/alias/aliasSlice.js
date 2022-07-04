@@ -13,7 +13,7 @@ const players = {
   // 10: {
   //   id: 10,
   //   name: 'player1',
-  //   team: null,
+  //   team: 2,
   // },
   // 20: {
   //   id: 20,
@@ -32,26 +32,27 @@ const players = {
   // },
 }
 const initialState = aliasAdapter.getInitialState({
-  status: 'game',
+  status: 'preGame',
   currentPlayer: null,
   admin: null,
+  lobbyId: 'd23f9ajsdf',
   socketStarted: false,
   settings: {
     points: 30,
-    time: 30,
+    time: 120,
     mode: 'medium',
   },
   teams: [
     {
-      id: uuidv4(),
-      name: '',
-      points: 0,
+      id: 2,
+      name: 'gawgewg',
+      points: 99,
       players: {
         0: null,
         1: null,
       },
-      guessing: 1,
-      explaining: 2,
+      guessing: 0,
+      explaining: 1,
     },
   ],
 })
@@ -154,6 +155,19 @@ const aliasSlice = createSlice({
         changes: { team: teamId },
       })
     },
+    deleteTeam(state, action) {
+      const team = state.teams.find(team => team.id === action.payload.id)
+      state.teams = state.teams.filter(team => team.id !== action.payload.id)
+      const players = Object.values(team.players)
+      players.forEach(id => {
+        if (id) {
+          aliasAdapter.updateOne(state, {
+            id,
+            changes: { team: null },
+          })
+        }
+      })
+    },
     teamLeave(state, action) {
       const { teamIndex, playerIndex } = action.payload
       const playerId = state.teams[teamIndex].players[playerIndex]
@@ -194,6 +208,7 @@ export const {
   socketStarted,
   changeFields,
   setAdminFields,
+  deleteTeam,
 } = aliasSlice.actions
 
 export const { selectAll: selectAllPlayers, selectById: selectPlayer } =

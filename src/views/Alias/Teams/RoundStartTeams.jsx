@@ -1,34 +1,27 @@
 import React from 'react'
 import * as Styles from './Teams.styles'
+import { useSelector } from 'react-redux'
+import { selectAllPlayers } from '@store/alias/aliasSlice'
 
 export default function RoundStartTeams() {
-  const teams = {
-    winners: {
-      points: 30,
-      players: ['player1', 'player2'],
-      guessing: 'player1',
-      explaining: 'player2',
-    },
-    losers: {
-      points: 20,
-      players: ['player1', 'player2'],
-      guessing: 'player1',
-      explaining: 'player2',
-    },
-  }
+  const teams = useSelector(state => state.alias.teams)
+  const players = useSelector(selectAllPlayers)
+
   return (
-    <div>
-      {Object.entries(teams).map(([title, values]) => {
+    <div style={{ marginTop: 0 }}>
+      {teams.map(values => {
         return (
           <Styles.TeamItem>
             <Styles.RoundStartTitle>
-              <span>{title}</span>
+              <span>{values.name}</span>
               <div>{values.points}</div>
             </Styles.RoundStartTitle>
-            {values.players.map(i => {
+            {Object.entries(values.players).map(([i, id]) => {
+              const player = players.find(item => item.id === id)
               return (
                 <Styles.PlayerItem>
-                  <span>{i}</span>
+                  {/* remove "?" opeartor later */}
+                  <span>{player?.name}</span>
                   <div>{i === values.guessing ? 'guessing' : 'explaining'}</div>
                 </Styles.PlayerItem>
               )

@@ -7,7 +7,7 @@ const StartTeams = enhancedTeams(RoundStartTeams)
 
 export default function GameStart() {
   return (
-    <div style={{ marginBottom: '80px' }}>
+    <div style={{ margin: '-40px 0 80px' }}>
       <StartTeams />
       <GameButton>start</GameButton>
     </div>

@@ -7,6 +7,8 @@ import {
   breakpoints,
   Button,
 } from '@components/common/common.styles'
+import Can from '@assets/img/trashCan.svg'
+
 export const TeamsWrapper = styled.article`
   margin: 30px 0;
   padding: 20px 30px;
@@ -42,7 +44,7 @@ export const TeamItems = styled.div`
   }
 `
 export const TeamTitle = styled.input`
-  text-align: center;
+  text-align: left;
   color: ${colors.white};
   font-size: ${fontSizes.m};
   border: 0;
@@ -50,10 +52,9 @@ export const TeamTitle = styled.input`
   background: none;
   width: 70%;
   display: block;
-  margin: 0 auto 17px;
   &::placeholder {
     color: ${colors.white};
-    text-align: center;
+    text-align: left;
     opacity: 0.5;
   }
 `
@@ -120,10 +121,11 @@ export const AddTeam = styled(Button)`
   font-weight: 700;
   width: 100%;
   background-color: ${colors.purp};
+  margin: 0 auto 30px;
 
   @media screen and (min-width: ${breakpoints.tablet}) {
-    width: 60%;
-    margin: 30px auto 0;
+    width: 50%;
+    margin: 15px auto 30px;
   }
 `
 export const AvailablePlayers = styled.div`
@@ -157,14 +159,36 @@ export const PlayersItem = styled.div`
 export const RoundStartTitle = styled.section`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   span {
     font-size: ${fontSizes.m};
     color: ${colors.white};
   }
   div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     color: ${colors.red};
-    padding: 7px 9px;
+    width: 30px;
+    height: 30px;
     border-radius: 50px;
     background-color: ${colors.white};
   }
+`
+export const TeamHeader = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 27px;
+`
+export const StyledCan = styled(Can)`
+  width: 100%;
+`
+export const StyledCanWrapper = styled.button`
+  border: 0;
+  background: none;
+  cursor: pointer;
+  width: 23px;
+  height: 23px;
 `

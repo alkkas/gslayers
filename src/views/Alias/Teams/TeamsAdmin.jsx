@@ -6,6 +6,7 @@ import {
   teamLeave,
   teamJoin,
   selectPlayer,
+  deleteTeam,
 } from '@store/alias/aliasSlice'
 import {
   PlayerItem,
@@ -14,6 +15,9 @@ import {
   TeamItem,
   TeamTitle,
   TeamItems,
+  TeamHeader,
+  StyledCan,
+  StyledCanWrapper,
 } from './Teams.styles'
 
 export default function TeamsAdmin() {
@@ -36,11 +40,22 @@ export default function TeamsAdmin() {
       {teams.map((item, index) => {
         return (
           <TeamItem>
-            <TeamTitle
-              value={item.name}
-              placeholder="team name..."
-              onChange={event => TeamTitleChange(item, index, event)}
-            />
+            <TeamHeader>
+              <TeamTitle
+                value={item.name}
+                placeholder="team name..."
+                onChange={event => TeamTitleChange(item, index, event)}
+              />
+              {admin ||
+              Object.values(item.players).every(value => value === null) ? (
+                <StyledCanWrapper
+                  onClick={() => dispatch(deleteTeam({ id: item.id }))}
+                >
+                  <StyledCan />
+                </StyledCanWrapper>
+              ) : null}
+            </TeamHeader>
+
             <section>
               {Object.values(item.players).map((id, playerIndex) => {
                 return id === null ? (

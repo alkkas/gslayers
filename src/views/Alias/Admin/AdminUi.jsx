@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import Teams from '../Teams/Teams'
 import * as Styles from './Admin.styles'
 import Counter from './Counter'
@@ -8,6 +8,7 @@ import PreGameTeams from '../Teams/PreGameTeams'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux/es/exports'
 import { AliasUiContainer } from '@components/common/common.styles'
+import CopySvg from '@assets/img/copy.svg'
 import {
   statusChange,
   timeChange,
@@ -23,7 +24,12 @@ export default function AdminUi() {
   const settings = useSelector(state => state.alias.settings)
   const preGameSettings = useSelector(state => state.alias)
   const mods = ['easy', 'medium', 'hard']
+  let timer
   const dispatch = useDispatch()
+  const link =
+    'https://gslayers.com/alias?lobby=' +
+    useSelector(state => state.alias.lobbyId)
+  const [animateCopy, setAnimateCopy] = useState(false)
 
   async function createLobby() {
     const data = await sendReq(
@@ -33,7 +39,12 @@ export default function AdminUi() {
     dispatch(linkChange(data.lobbyId))
     console.log(data)
   }
-
+  function handleClick() {
+    navigator.clipboard.writeText(link)
+    setAnimateCopy(true)
+    clearTimeout(timer)
+    timer = setTimeout(() => setAnimateCopy(false), 2500)
+  }
   return (
     <AliasUiContainer>
       <Styles.AdminGroup>
@@ -59,13 +70,13 @@ export default function AdminUi() {
       </Styles.EditContainer>
       <AdminTeams admin />
 
-      <Styles.GenerateLinkBtn onClick={createLobby}>
-        <span>generate link</span>
-        <img src={LinkImg} alt="link symbol" />
-      </Styles.GenerateLinkBtn>
-      <Styles.LinkField>
-        <input />
-        <button></button>
+      <Styles.LinkField animate={animateCopy}>
+        <input value={link} />
+        <button onClick={handleClick}>
+          <div>
+            <CopySvg />
+          </div>
+        </button>
       </Styles.LinkField>
     </AliasUiContainer>
   )

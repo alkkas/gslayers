@@ -8,10 +8,7 @@ import {
 } from '../../components/common/common.styles'
 
 export const AliasWrapper = styled(Wrapper)`
-  flex-grow: 1;
-  display: flex;
   padding: 0 15px;
-  flex-direction: column;
 `
 export const AliasTitle = styled(Title)`
   color: ${colors.white};
