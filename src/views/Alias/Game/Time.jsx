@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTimer } from 'use-timer'
 import * as Styles from './Games.styles'
 import { useDimensions } from '@utils/hooks/useDimensions'
 import Moves from './Moves'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { statusChange } from '@store/alias/aliasSlice'
+
 export default function Time() {
   const startTime = useSelector(state => state.alias.settings.time)
   const { time, start, pause, reset, status } = useTimer({
@@ -11,18 +13,20 @@ export default function Time() {
     endTime: 0,
     timerType: 'DECREMENTAL',
   })
-  const [endX, setEndX] = useState(0)
-
+  const dispatch = useDispatch()
   const wrapper = useRef(null)
   const { width } = useDimensions(wrapper)
 
   const count = 18 + Math.round(startTime / 10) * 5
   const timerWidth = (width / 18) * count
+  const endX = -(timerWidth - width)
 
-  function handleClick() {
+  useEffect(() => {
     start()
-    setEndX(-(timerWidth - width))
-  }
+    setTimeout(() => {
+      dispatch(statusChange('endRound'))
+    }, (startTime + 1) * 1000)
+  }, [])
 
   return (
     <>
@@ -38,7 +42,6 @@ export default function Time() {
 
         <Styles.LargeNum>{time}</Styles.LargeNum>
       </Styles.Wrapper>
-      <button onClick={handleClick}>start</button>
     </>
   )
 }

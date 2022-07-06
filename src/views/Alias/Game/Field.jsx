@@ -3,102 +3,17 @@ import * as Styles from './Games.styles'
 import { useDimensions } from '@utils/hooks/useDimensions'
 import { getCoords } from '@services/getCoords'
 import { StyleSheetConsumer } from 'styled-components'
+import { useSelector } from 'react-redux'
 
-export default function Field() {
-  const words = [
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-    'bebra',
-    'asdfasf',
-    'adsf',
-    'asdfa',
-    'adfasdf',
-    'bebra',
-    'asdfasf',
-  ]
+export default function Field({ word }) {
+  const words = useSelector(state => state.alias.words)
   const wrapper = useRef(null)
   const { width, height } = useDimensions(wrapper)
-  const [wordsUpdated, setWordsUpdated] = useState(false)
+
   let wordsCoords = getCoords(width, height, words)
 
   useEffect(() => {
     console.log(wordsCoords)
-    setWordsUpdated(true)
   })
   return (
     <Styles.Field ref={wrapper}>
@@ -112,7 +27,7 @@ export default function Field() {
           {i.word}
         </Styles.Word>
       ))}
-      <Styles.MainWord>illusions</Styles.MainWord>
+      <Styles.MainWord>{word}</Styles.MainWord>
     </Styles.Field>
   )
 }

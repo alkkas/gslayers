@@ -18,6 +18,10 @@ const StyledButton = styled.button`
   }
 `
 
-export default function Button({ children, background }) {
-  return <StyledButton background={background}>{children}</StyledButton>
+export default function Button({ children, background, click }) {
+  return (
+    <StyledButton background={background} onClick={click}>
+      {children}
+    </StyledButton>
+  )
 }

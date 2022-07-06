@@ -99,8 +99,10 @@ const Button = styled.button`
 export const SkipButton = styled(Button)`
   background-color: ${colors.red};
   border-radius: 5px 0 0 5px;
+  opacity: ${props => (props.disabled ? 0.5 : 1)};
 `
 export const GuessButton = styled(Button)`
   background-color: ${colors.green};
   border-radius: 0 5px 5px 0;
+  opacity: ${props => (props.disabled ? 0.5 : 1)};
 `

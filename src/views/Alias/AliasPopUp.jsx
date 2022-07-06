@@ -24,6 +24,7 @@ export default function AliasPopUp() {
     if (value.match(/^(?!\s*$).+/)) {
       setValues({ name: value })
       const lobby = searchParams.get('lobby')
+      dispatch(statusChange('loading'))
       if (lobby) {
         const data = await getData(
           `http://26.71.3.113:8000/alias/?lobby=${lobby}&name=${value}`

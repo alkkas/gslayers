@@ -4,10 +4,9 @@ import {
   createSelector,
   createEntityAdapter,
 } from '@reduxjs/toolkit'
-import getRandomInt from '@utils/helpers/random'
-import _ from 'lodash'
 export const aliasAdapter = createEntityAdapter()
 import { v4 as uuidv4 } from 'uuid'
+import { sendReq } from '@services/alias/sendReq'
 
 const players = {
   // 10: {
@@ -31,22 +30,32 @@ const players = {
   //   team: 1,
   // },
 }
+
 const initialState = aliasAdapter.getInitialState({
-  status: 'preGame',
+  status: 'game',
   currentPlayer: null,
   admin: null,
   lobbyId: 'd23f9ajsdf',
   socketStarted: false,
+  wordsSettled: false,
+  winner: null,
+  rounds: 0,
+  currentTeam: 2,
+  currentSession: {
+    skipped: 0,
+    guessed: 0,
+  },
+  words: [],
   settings: {
     points: 30,
-    time: 120,
+    time: 10,
     mode: 'medium',
   },
   teams: [
     {
       id: 2,
       name: 'gawgewg',
-      points: 99,
+      points: 0,
       players: {
         0: null,
         1: null,
@@ -64,6 +73,12 @@ export const fetchPlayers = createAsyncThunk(
   }
 )
 
+export const fetchWords = createAsyncThunk('alias/fetchWords', async () => {
+  const data = await fetch('slvainserverhtpp.com/words')
+  //const response = await sendReq('slvainserverhtpp.com/words', {wordsFetched: true})
+  return data
+})
+
 const aliasSlice = createSlice({
   name: 'alias',
   initialState,
@@ -75,7 +90,32 @@ const aliasSlice = createSlice({
     // {
     //   currentPlayer, settings, teams, players
     // }
-
+    wordsSettled(state, _) {
+      state.wordsSettled = true
+    },
+    sessionChange(state, action) {
+      state.currentSession = action.payload
+    },
+    setCurrentTeam(state, action) {
+      state.currentTeam = action.payload
+    },
+    increaseRounds(state, _) {
+      state.rounds = state.rounds + 1
+    },
+    cleanUp(state, _) {
+      state.teams = state.teams.map(team => {
+        team.points = 0
+        team.rounds = 0
+        return team
+      })
+    },
+    setWinner(state, action) {
+      state.winner = action.payload
+    },
+    teamPointsChange(state, action) {
+      const team = state.teams.find((team = team.id === state.currentTeam))
+      team.points = team.points + action.payload
+    },
     changeCurrentPlayer(state, action) {
       state.currentPlayer = action.payload
     },
@@ -183,10 +223,14 @@ const aliasSlice = createSlice({
   },
 
   extraReducers: builder => {
-    builder.addCase(fetchPlayers.fulfilled, (state, action) => {
-      aliasAdapter.setAll(state, action.payload)
-      state.status = 'preGame'
-    })
+    builder
+      .addCase(fetchPlayers.fulfilled, (state, action) => {
+        aliasAdapter.setAll(state, action.payload)
+        state.status = 'preGame'
+      })
+      .addCase(fetchWords.fulfilled, (state, action) => {
+        state.words = action.payload.words
+      })
   },
 })
 
@@ -194,12 +238,17 @@ export const selectStatus = state => state.alias.status
 export const {
   statusChange,
   pointsChange,
+  teamPointsChange,
+  increaseRounds,
   timeChange,
   modeChange,
   teamNameChange,
+  sessionChange,
   teamLeave,
   teamJoin,
   addTeam,
+  cleanUp,
+  setCurrentTeam,
   setRules,
   playerJoin,
   changeCurrentPlayer,
@@ -207,6 +256,7 @@ export const {
   setPlayerFields,
   socketStarted,
   changeFields,
+  setWinner,
   setAdminFields,
   deleteTeam,
 } = aliasSlice.actions

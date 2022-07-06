@@ -1,6 +1,11 @@
 import { debounce } from 'lodash'
 export const debSendToSocket = debounce(sendToSocket, 500)
-import { changeFields } from '@store/alias/aliasSlice'
+import {
+  changeFields,
+  statusChange,
+  sessionChange,
+  wordsSettled,
+} from '@store/alias/aliasSlice'
 
 export const debounceObj = {
   entities: {},
@@ -42,7 +47,15 @@ export function startSocket(store, lobbyId) {
     const data = JSON.parse(event.data).data
     if (typeof data === 'object') {
       debounceObj.running = false
-      store.dispatch(changeFields(data))
+      if (data.type === 'preGame') {
+        store.dispatch(changeFields(data))
+      } else if (data.type === 'status') {
+        store.dispatch(statusChange(data.status))
+      } else if (data.type === 'game') {
+        store.dispatch(sessionChange(data.session))
+      } else if (data.type === 'wordsFetched') {
+        store.dispatch(wordsSettled())
+      }
     }
   }
 }
