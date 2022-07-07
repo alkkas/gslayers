@@ -23,9 +23,6 @@ export default function Time() {
 
   useEffect(() => {
     start()
-    setTimeout(() => {
-      dispatch(statusChange('endRound'))
-    }, (startTime + 1) * 1000)
   }, [])
 
   return (

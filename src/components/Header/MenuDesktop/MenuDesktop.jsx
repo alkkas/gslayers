@@ -6,6 +6,7 @@ import * as Scroll from 'react-scroll'
 import { MenuItem } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
+import ChangeLang from '../ChangeLang/ChangeLang'
 
 export default function MenuDesktop() {
   return (
@@ -40,6 +41,7 @@ export default function MenuDesktop() {
             </li>
           </ul>
         </Styles.Items>
+        <ChangeLang desktop={true} />
       </Styles.MenuContainer>
     </Styles.Wrapper>
   )

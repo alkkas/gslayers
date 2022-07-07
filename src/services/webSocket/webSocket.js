@@ -1,5 +1,5 @@
 import { debounce } from 'lodash'
-export const debSendToSocket = debounce(sendToSocket, 500)
+export const debSendToSocket = debounce(sendToSocket, 200)
 import {
   changeFields,
   statusChange,
@@ -13,19 +13,18 @@ export const debounceObj = {
   running: true,
 }
 
-function sendToSocket(obj, socket) {
-  console.log('socket obj', obj)
-  socket.send(JSON.stringify(obj))
-  obj = {}
+function sendToSocket(socket) {
+  console.log('socket obj', debounceObj.entities)
+  socket.send(JSON.stringify(debounceObj.entities))
+  debounceObj.entities = {}
 }
 
 export function startSocket(store, lobbyId) {
-  const ws = new WebSocket(`ws://26.71.3.113:8000/ws/${lobbyId}/`)
+  const ws = new WebSocket(`ws://26.195.134.149:8000/ws/${lobbyId}/`)
   console.log(ws)
   ws.onopen = function () {
     debounceObj.prevValues = store.getState().alias
     store.subscribe(() => {
-      console.log('starts', debounceObj.running)
       if (debounceObj.running) {
         let prevValues = debounceObj.prevValues
         let currentValues = store.getState().alias
@@ -35,26 +34,24 @@ export function startSocket(store, lobbyId) {
             debounceObj.entities[key] = currentValues[key]
           }
         }
-
-        debSendToSocket(debounceObj.entities, ws)
+        if (store.getState().alias.status === 'game') {
+          sendToSocket(ws)
+        } else {
+          debSendToSocket(ws)
+        }
       }
       debounceObj.running = true
-      console.log('end', debounceObj.running)
     })
   }
   ws.onmessage = function (event) {
-    console.log('msg')
     const data = JSON.parse(event.data).data
+    console.log('msg', data)
     if (typeof data === 'object') {
       debounceObj.running = false
-      if (data.type === 'preGame') {
+      if (data.wordsSettled) {
+        store.dispatch(changeFields({ ...data, status: 'endRound' }))
+      } else {
         store.dispatch(changeFields(data))
-      } else if (data.type === 'status') {
-        store.dispatch(statusChange(data.status))
-      } else if (data.type === 'game') {
-        store.dispatch(sessionChange(data.session))
-      } else if (data.type === 'wordsFetched') {
-        store.dispatch(wordsSettled())
       }
     }
   }

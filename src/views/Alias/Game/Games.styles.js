@@ -1,5 +1,9 @@
 import styled from 'styled-components'
-import { colors, fontSizes } from '@components/common/common.styles'
+import {
+  colors,
+  fontSizes,
+  breakpoints,
+} from '@components/common/common.styles'
 import { motion } from 'framer-motion'
 export const GameWrapper = styled.section`
   margin-bottom: 100px;
@@ -11,6 +15,7 @@ export const Wrapper = styled.section`
   border-bottom: 2px solid ${colors.white};
   color: ${colors.white};
   position: relative;
+  margin: 0 auto;
 `
 export const Lines = styled.div`
   position: absolute;
@@ -58,6 +63,10 @@ export const Field = styled.section`
   margin: 15px 0;
   min-height: 300px;
   position: relative;
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    margin: 30px 0;
+    min-height: 400px;
+  }
 `
 export const Word = styled.span`
   color: ${colors.white};

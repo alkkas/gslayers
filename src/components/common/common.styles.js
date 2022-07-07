@@ -26,11 +26,7 @@ export const fontSizes = {
 export const Wrapper = styled.section``
 
 export const Container = styled.section`
-  max-width: 1024px;
   padding: 0 15px;
-  @media screen and (min-width: ${breakpoints.tablet}) {
-    margin: 0 auto;
-  }
 `
 export const Button = styled.button`
   cursor: pointer;

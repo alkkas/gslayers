@@ -21,16 +21,12 @@ export default function Alias() {
         return <Loading />
       case 'inputName':
         return <AliasPopUp />
-
       case 'preGame':
         return <AliasUi />
-
       case 'game':
         return <Game />
-
       case 'endRound':
         return <GameStart />
-
       case 'win':
         return <WinScreen />
 

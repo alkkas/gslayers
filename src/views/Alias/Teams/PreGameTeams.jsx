@@ -25,7 +25,7 @@ export default function PreGameTeams({ admin }) {
           <GameButton background="red">START</GameButton>
         </div>
       ) : null}
-
+      <Styles.PlayersTitle>spectators:</Styles.PlayersTitle>
       <Styles.AvailablePlayers>
         {players.map(i => {
           if (!i.team) {

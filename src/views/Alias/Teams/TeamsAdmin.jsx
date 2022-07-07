@@ -86,7 +86,7 @@ export default function TeamsAdmin() {
                   </PlayerItem>
                 ) : (
                   <PlayerItem>
-                    <span>{players.find(item => item.id === id).name}</span>
+                    <span>{players.find(item => item.id === id)?.name}</span>
                     {admin || playerId === id ? (
                       <PlayerRemove
                         onClick={() => {

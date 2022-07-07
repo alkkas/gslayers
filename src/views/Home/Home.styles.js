@@ -86,7 +86,7 @@ export const HomeItemSubTitle = styled(LargeText)`
 `
 export const HomeItems = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 360px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
   gap: 27px;
   justify-content: center;
   margin-bottom: 45px;

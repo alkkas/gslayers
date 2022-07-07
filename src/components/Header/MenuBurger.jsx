@@ -1,6 +1,14 @@
 import React from 'react'
-import { MenuBurgerWrapper } from './Header.styles'
+import { MenuBurgerContent, MenuBurgerWrapper } from './Header.styles'
 
 export default function MenuBurger({ toggle, isOpen }) {
-  return <MenuBurgerWrapper onClick={toggle} open={isOpen}></MenuBurgerWrapper>
+  function handleClick() {
+    console.log('click')
+    toggle()
+  }
+  return (
+    <MenuBurgerWrapper onClick={handleClick}>
+      <MenuBurgerContent open={isOpen}></MenuBurgerContent>
+    </MenuBurgerWrapper>
+  )
 }

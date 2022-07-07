@@ -4,19 +4,21 @@ import { Header, Footer } from '@components'
 // import { hot } from 'react-hot-loader/root'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ReactSession } from 'react-client-session'
-
+import { fetchPlayers } from '@store/alias/aliasSlice'
+import { useDispatch } from 'react-redux'
 function Main() {
   ReactSession.setStoreType('localStorage')
 
   const location = useLocation()
   const [backgroud, setBackground] = useState('white')
-
+  const dispatch = useDispatch()
   useEffect(() => {
     if (location.pathname == '/alias') {
       setBackground('purp')
     } else {
       setBackground('white')
     }
+    dispatch(fetchPlayers())
   })
 
   return (

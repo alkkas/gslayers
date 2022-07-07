@@ -29,7 +29,7 @@ export const TeamItem = styled.div`
   padding: 15px;
   border: 1px solid ${colors.white};
   border-radius: 5px;
-  margin: 30px 0;
+
   @media screen and (min-width: ${breakpoints.tablet}) {
     margin: 0;
   }
@@ -155,7 +155,12 @@ export const PlayersItem = styled.div`
     margin: 0;
   }
 `
-
+export const RoundStartTeams = styled.section`
+  margin: 0 0 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, auto));
+  gap: 15px;
+`
 export const RoundStartTitle = styled.section`
   display: flex;
   justify-content: space-between;

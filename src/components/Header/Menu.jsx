@@ -75,7 +75,7 @@ export default function Menu({ toggle }) {
           </motion.li>
         </MenuItems>
       </nav>
-      <ChangeLang />
+      <ChangeLang desktop={false} />
     </MenuWrapper>
   )
 }

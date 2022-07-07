@@ -7,35 +7,20 @@ import {
   statusChange,
   setWinner,
   setCurrentTeam,
+  reverseOrder,
 } from '@store/alias/aliasSlice'
 
 export default function RoundStartTeams() {
   const teams = useSelector(state => state.alias.teams)
-  const rounds = useSelector(state => state.alias.rounds)
-  const points = useSelector(state => state.alias.settings.points)
   const players = useSelector(selectAllPlayers)
   const dispatch = useDispatch()
-  const teamsCount = teams.length
-  const currentTeam = teams[rounds % teamsCount].id
+  const currentTeamId = useSelector(state => state.alias.currentTeam)
+  const currentTeam = teams.find(team => team.id === currentTeamId) || teams[0]
+  const currentPlayer = useSelector(state => state.alias.currentPlayer)
+  const explainingPlayer = currentTeam.players[currentTeam.explaining]
 
-  useEffect(() => {
-    const winners = []
-    if (rounds % teamsCount === 0 && rounds !== 0) {
-      teams.forEach(i => {
-        if (i.points >= points) {
-          winners.push(i)
-        }
-      })
-    }
-    if (winners.length === 1) {
-      dispatch(statusChange('win'))
-      dispatch(setWinner(winners[0].id))
-    } else {
-      dispatch(setCurrentTeam(currentTeam))
-    }
-  })
   return (
-    <div style={{ marginTop: 0 }}>
+    <Styles.RoundStartTeams>
       {teams.map(values => {
         return (
           <Styles.TeamItem>
@@ -47,11 +32,12 @@ export default function RoundStartTeams() {
               const player = players.find(item => item.id === id)
               return (
                 <Styles.PlayerItem>
-                  {/* remove "?" opeartor later */}
                   <span>{player?.name}</span>
-                  {values.id === currentTeam ? (
+                  {values.id === currentTeamId ? (
                     <div>
-                      {i === values.guessing ? 'guessing' : 'explaining'}
+                      {Number(i) === values.guessing
+                        ? 'guessing'
+                        : 'explaining'}
                     </div>
                   ) : null}
                 </Styles.PlayerItem>
@@ -60,6 +46,6 @@ export default function RoundStartTeams() {
           </Styles.TeamItem>
         )
       })}
-    </div>
+    </Styles.RoundStartTeams>
   )
 }

@@ -6,6 +6,7 @@ export const LoadingContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  margin-top: 25vh;
 `
 export const LoadingImg = styled(motion.img)`
   max-width: 64px;

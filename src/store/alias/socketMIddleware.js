@@ -7,5 +7,6 @@ export const socketMiddleware = state => next => action => {
     startSocket(store, store.getState().alias.lobbyId)
     socketStarted = true
   }
+
   next(action)
 }

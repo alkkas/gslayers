@@ -27,18 +27,10 @@ export default function AdminUi() {
   let timer
   const dispatch = useDispatch()
   const link =
-    'https://gslayers.com/alias?lobby=' +
+    'http://localhost:8080/alias?lobby=' +
     useSelector(state => state.alias.lobbyId)
   const [animateCopy, setAnimateCopy] = useState(false)
 
-  async function createLobby() {
-    const data = await sendReq(
-      'http://26.71.3.113:8000/api/createLink/',
-      preGameSettings
-    )
-    dispatch(linkChange(data.lobbyId))
-    console.log(data)
-  }
   function handleClick() {
     navigator.clipboard.writeText(link)
     setAnimateCopy(true)

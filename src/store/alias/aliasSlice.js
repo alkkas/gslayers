@@ -6,19 +6,18 @@ import {
 } from '@reduxjs/toolkit'
 export const aliasAdapter = createEntityAdapter()
 import { v4 as uuidv4 } from 'uuid'
-import { sendReq } from '@services/alias/sendReq'
 
 const players = {
-  // 10: {
-  //   id: 10,
-  //   name: 'player1',
-  //   team: 2,
-  // },
-  // 20: {
-  //   id: 20,
-  //   name: 'player2',
-  //   team: 2,
-  // },
+  10: {
+    id: 10,
+    name: 'player1',
+    team: 2,
+  },
+  20: {
+    id: 20,
+    name: 'player2',
+    team: 2,
+  },
   // 30: {
   //   id: 30,
   //   name: 'player3',
@@ -32,33 +31,34 @@ const players = {
 }
 
 const initialState = aliasAdapter.getInitialState({
-  status: 'game',
-  currentPlayer: null,
-  admin: null,
-  lobbyId: 'd23f9ajsdf',
-  socketStarted: false,
+  status: 'win',
+  currentPlayer: 10,
+  admin: 10,
+  lobbyId: 'adsfasdf',
   wordsSettled: false,
   winner: null,
   rounds: 0,
-  currentTeam: 2,
+  currentTeam: null,
   currentSession: {
     skipped: 0,
     guessed: 0,
+    currentWord: null,
+    usedWords: [],
   },
   words: [],
   settings: {
     points: 30,
-    time: 10,
+    time: 30,
     mode: 'medium',
   },
   teams: [
     {
       id: 2,
-      name: 'gawgewg',
+      name: 'asdfasd',
       points: 0,
       players: {
-        0: null,
-        1: null,
+        0: 10,
+        1: 20,
       },
       guessing: 0,
       explaining: 1,
@@ -73,11 +73,23 @@ export const fetchPlayers = createAsyncThunk(
   }
 )
 
-export const fetchWords = createAsyncThunk('alias/fetchWords', async () => {
-  const data = await fetch('slvainserverhtpp.com/words')
-  //const response = await sendReq('slvainserverhtpp.com/words', {wordsFetched: true})
-  return data
-})
+export const fetchWords = createAsyncThunk(
+  'alias/fetchWords',
+  async (_, { getState }) => {
+    console.log('fetching')
+    const lobbyId = getState().alias.lobbyId
+    const response = await fetch(
+      `http://26.195.134.149:8000/words?lobby=${lobbyId}`
+    )
+
+    const data = await response.json()
+    await fetch(
+      `http://26.195.134.149:8000/words?lobby=${lobbyId}&wordsFetched=true`
+    )
+    console.log(data)
+    return data
+  }
+)
 
 const aliasSlice = createSlice({
   name: 'alias',
@@ -112,9 +124,17 @@ const aliasSlice = createSlice({
     setWinner(state, action) {
       state.winner = action.payload
     },
-    teamPointsChange(state, action) {
-      const team = state.teams.find((team = team.id === state.currentTeam))
-      team.points = team.points + action.payload
+    teamPointsChange(state, _) {
+      const team = state.teams.find(team => team.id === state.currentTeam)
+      team.points = team.points + state.currentSession.guessed
+      state.rounds = state.rounds + 1
+      state.currentSession.guessed = 0
+      state.currentSession.skipped = 0
+    },
+    reverseOrder(state, _) {
+      const team = state.teams.find(team => team.id === state.currentTeam)
+      team.guessing = Number(!Boolean(team.guessing))
+      team.explaining = Number(!Boolean(team.explaining))
     },
     changeCurrentPlayer(state, action) {
       state.currentPlayer = action.payload
@@ -123,11 +143,14 @@ const aliasSlice = createSlice({
       state.socketStarted = action
     },
     changeFields(state, action) {
-      const { settings, teams, players, admin } = action.payload
-      state.settings = settings
-      state.teams = teams
-      state.admin = admin
-      aliasAdapter.setAll(state, players)
+      const data = action.payload
+      Object.keys(data).forEach(key => {
+        if (key === 'players') {
+          aliasAdapter.setAll(state, data[key])
+        } else {
+          state[key] = data[key]
+        }
+      })
     },
     setPlayerFields(state, action) {
       console.log(action.payload)
@@ -226,7 +249,6 @@ const aliasSlice = createSlice({
     builder
       .addCase(fetchPlayers.fulfilled, (state, action) => {
         aliasAdapter.setAll(state, action.payload)
-        state.status = 'preGame'
       })
       .addCase(fetchWords.fulfilled, (state, action) => {
         state.words = action.payload.words
@@ -238,6 +260,7 @@ export const selectStatus = state => state.alias.status
 export const {
   statusChange,
   pointsChange,
+  reverseOrder,
   teamPointsChange,
   increaseRounds,
   timeChange,

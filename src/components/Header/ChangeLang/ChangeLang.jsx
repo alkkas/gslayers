@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import * as Styles from './ChangeLang.styles'
 
-export default function ChangeLang() {
+export default function ChangeLang({ desktop }) {
   let [lang, setLang] = useState('en')
   function handleClick(l) {
     setLang(l)
   }
   return (
-    <Styles.Wrapper>
+    <Styles.Wrapper desktop={desktop}>
       <Styles.Lang active={lang == 'en'} onClick={() => handleClick('en')}>
         en
       </Styles.Lang>

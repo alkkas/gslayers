@@ -5,10 +5,21 @@ import {
   fontSizes,
   Title,
   Button,
+  breakpoints,
 } from '../../components/common/common.styles'
 
 export const AliasWrapper = styled(Wrapper)`
   padding: 0 15px;
+  min-height: 100vh;
+  flex-grow: 1;
+  max-width: 572px;
+  width: 100%;
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    margin: 0 auto;
+  }
+  @media screen and (min-width: ${breakpoints.desktop}) {
+    max-width: 768px;
+  }
 `
 export const AliasTitle = styled(Title)`
   color: ${colors.white};
@@ -42,5 +53,13 @@ export const PopUpWrapper = styled.section`
 export const PopUpInput = styled.input`
   width: 300px;
   height: 40px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid ${colors.orange};
+  color: ${colors.white};
+  font-size: ${fontSizes.sm};
+  &::placeholder {
+    color: ${colors.white};
+  }
 `
 export const PopUpButton = styled(Button)``

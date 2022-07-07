@@ -36,7 +36,7 @@ export default function Header() {
     >
       <MenuDesktop />
       <MobileMenuWrapper>
-        <MenuBurger toggle={() => toggleOpen()} isOpen={isOpen} />
+        <MenuBurger toggle={toggleOpen} isOpen={isOpen} />
         <Menu toggle={toggleOpen} />
       </MobileMenuWrapper>
     </HeaderWrapper>

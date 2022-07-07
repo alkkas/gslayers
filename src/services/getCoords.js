@@ -27,7 +27,7 @@ export const getCoords = (width, height, words) => {
         (newWord.x > i.x && newWord.x - i.x > i.width)
       )
     })
-    console.log(width, height, i)
+
     if (result && dimensions) coords.push(newWord)
   })
 

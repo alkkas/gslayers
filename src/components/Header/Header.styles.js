@@ -16,13 +16,23 @@ export const MobileMenuWrapper = styled.div`
     display: none;
   }
 `
-export const MenuBurgerWrapper = styled(motion.div)`
-  margin-top: 20px;
+export const MenuBurgerWrapper = styled.div`
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  z-index: 10;
+`
+export const MenuBurgerContent = styled(motion.div)`
   display: block;
   width: 37px;
   height: 13px;
   position: relative;
-  z-index: 10;
 
   &::before,
   &::after {

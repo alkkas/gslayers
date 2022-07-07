@@ -7,21 +7,25 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  left: 15px;
-  bottom: 10px;
+  position: ${props => (props.desktop ? 'relative' : 'absolute')};
+  left: ${props => (props.desktop ? '0' : '15px')};
+  bottom: ${props => (props.desktop ? '0' : '10px')};
+  margin-top: ${props => (props.desktop ? '-7px' : 0)};
   &::before {
     content: '';
     width: 2px;
     height: 70%;
     background-color: ${colors.orange};
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: calc(50% + 2px);
     transform: translate(-50%, -50%);
   }
 `
-export const Lang = styled.span`
+export const Lang = styled.button`
+  cursor: pointer;
+  background: none;
+  border: 0;
   flex-grow: 1;
   text-align: center;
   transition: 0.2s ease all;

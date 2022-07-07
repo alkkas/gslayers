@@ -5,7 +5,6 @@ import { setValues, getValue } from '@services/localStorage'
 import { useSearchParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import createPlayer from '@utils/helpers/createPlayers'
 import {
   statusChange,
   changeCurrentPlayer,
@@ -27,7 +26,7 @@ export default function AliasPopUp() {
       dispatch(statusChange('loading'))
       if (lobby) {
         const data = await getData(
-          `http://26.71.3.113:8000/alias/?lobby=${lobby}&name=${value}`
+          `http://26.195.134.149:8000/alias/?lobby=${lobby}&name=${value}`
         )
         console.log(data)
         if (data.exist) {
@@ -39,7 +38,7 @@ export default function AliasPopUp() {
         }
       } else {
         const data = await getData(
-          `http://26.71.3.113:8000/alias/?newLobby=true&name=${value}`
+          `http://26.195.134.149:8000/alias/?newLobby=true&name=${value}`
         )
         console.log(data)
         dispatch(setAdminFields(data))
@@ -53,6 +52,7 @@ export default function AliasPopUp() {
       <Styles.PopUpInput
         value={value}
         onChange={event => setValue(event.target.value)}
+        placeholder="your name..."
       />
       <Styles.PopUpButton onClick={joinLobby}>Join</Styles.PopUpButton>
     </Styles.PopUpWrapper>

@@ -15,7 +15,11 @@ import {
 } from '@szhsin/react-menu/style-utils'
 
 export const MenuContainer = styled(Container)`
-  max-width: 768px;
+  max-width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 const itemCss = css`
   color: ${colors.white};
