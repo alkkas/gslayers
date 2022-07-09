@@ -18,7 +18,7 @@ export const MobileMenuWrapper = styled.div`
 `
 export const MenuBurgerWrapper = styled.div`
   position: absolute;
-  top: 2px;
+  top: 8px;
   left: 8px;
   width: 50px;
   height: 50px;

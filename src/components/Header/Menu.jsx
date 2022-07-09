@@ -25,7 +25,7 @@ const menuVariants = {
     },
   }),
   closed: {
-    clipPath: 'circle(25px at 33px 27px)',
+    clipPath: 'circle(25px at 33px 33px)',
     transition: {
       type: 'spring',
       stiffness: 400,
