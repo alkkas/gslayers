@@ -83,7 +83,7 @@ export const LinkField = styled.section`
     margin: 0 auto 60px;
   }
   &::before {
-    content: 'copied to clipboard';
+    content: '${props => props.copy}';
     text-align: center;
     color: ${colors.white};
     display: inline-block;

@@ -13,12 +13,12 @@ function Main() {
   const [backgroud, setBackground] = useState('white')
   const dispatch = useDispatch()
   useEffect(() => {
+    //dispatch(fetchPlayers())
     if (location.pathname == '/alias') {
       setBackground('purp')
     } else {
       setBackground('white')
     }
-    dispatch(fetchPlayers())
   })
 
   return (

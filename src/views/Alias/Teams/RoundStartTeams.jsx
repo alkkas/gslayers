@@ -9,6 +9,7 @@ import {
   setCurrentTeam,
   reverseOrder,
 } from '@store/alias/aliasSlice'
+import { useTranslation } from 'react-i18next'
 
 export default function RoundStartTeams() {
   const teams = useSelector(state => state.alias.teams)
@@ -16,8 +17,7 @@ export default function RoundStartTeams() {
   const dispatch = useDispatch()
   const currentTeamId = useSelector(state => state.alias.currentTeam)
   const currentTeam = teams.find(team => team.id === currentTeamId) || teams[0]
-  const currentPlayer = useSelector(state => state.alias.currentPlayer)
-  const explainingPlayer = currentTeam.players[currentTeam.explaining]
+  const { t } = useTranslation()
 
   return (
     <Styles.RoundStartTeams>
@@ -36,8 +36,8 @@ export default function RoundStartTeams() {
                   {values.id === currentTeamId ? (
                     <div>
                       {Number(i) === values.guessing
-                        ? 'guessing'
-                        : 'explaining'}
+                        ? t('guess')
+                        : t('explain')}
                     </div>
                   ) : null}
                 </Styles.PlayerItem>

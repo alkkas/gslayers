@@ -6,7 +6,7 @@ import {
   sessionChange,
   wordsSettled,
 } from '@store/alias/aliasSlice'
-
+import { isEmpty } from 'lodash'
 export const debounceObj = {
   entities: {},
   prevValues: {},
@@ -15,12 +15,18 @@ export const debounceObj = {
 
 function sendToSocket(socket) {
   console.log('socket obj', debounceObj.entities)
-  socket.send(JSON.stringify(debounceObj.entities))
+  if (!isEmpty(debounceObj.entities)) {
+    socket.send(JSON.stringify(debounceObj.entities))
+  }
   debounceObj.entities = {}
 }
 
 export function startSocket(store, lobbyId) {
-  const ws = new WebSocket(`ws://26.195.134.149:8000/ws/${lobbyId}/`)
+  const ws = new WebSocket(
+    `wss://api.gslayers.ru/ws/${lobbyId}_${
+      store.getState().alias.currentPlayer
+    }/`
+  )
   console.log(ws)
   ws.onopen = function () {
     debounceObj.prevValues = store.getState().alias
@@ -29,16 +35,19 @@ export function startSocket(store, lobbyId) {
         let prevValues = debounceObj.prevValues
         let currentValues = store.getState().alias
         debounceObj.prevValues = currentValues
+
         for (let key in currentValues) {
-          if (!_.isEqual(prevValues[key], currentValues[key])) {
+          if (
+            !_.isEqual(prevValues[key], currentValues[key]) &&
+            key !== 'wordsSettled' &&
+            key !== 'words'
+          ) {
+            console.log(key)
+
             debounceObj.entities[key] = currentValues[key]
           }
         }
-        if (store.getState().alias.status === 'game') {
-          sendToSocket(ws)
-        } else {
-          debSendToSocket(ws)
-        }
+        sendToSocket(ws)
       }
       debounceObj.running = true
     })
@@ -48,10 +57,10 @@ export function startSocket(store, lobbyId) {
     console.log('msg', data)
     if (typeof data === 'object') {
       debounceObj.running = false
+      store.dispatch(changeFields(data))
+
       if (data.wordsSettled) {
-        store.dispatch(changeFields({ ...data, status: 'endRound' }))
-      } else {
-        store.dispatch(changeFields(data))
+        store.dispatch(statusChange('endRound'))
       }
     }
   }

@@ -75,6 +75,7 @@ export const HomeSubTitle = styled(LargeText)`
   font-weight: 300;
 `
 export const HomeMainTitle = styled(SubTitle)`
+  text-transform: uppercase;
   color: ${colors.orange};
   text-align: center;
   margin: 88px 0 30px;

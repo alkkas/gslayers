@@ -84,6 +84,7 @@ export const MainWord = styled.span`
   transform: translate(-50%, -50%);
   font-size: ${fontSizes.t};
   color: ${colors.white};
+  filter: blur(${props => (props.filter ? '10px' : '0px')});
   font-weight: 800;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `

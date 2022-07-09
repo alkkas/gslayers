@@ -1,6 +1,9 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const Visualizer = require('webpack-visualizer-plugin2')
+const { StatsWriterPlugin } = require('webpack-stats-plugin')
+
 module.exports = {
   entry: path.resolve(__dirname, 'src/index.js'),
   target: 'web',
@@ -36,6 +39,16 @@ module.exports = {
       template: path.resolve(__dirname, 'src/index.html'),
     }),
     new ESLintPlugin({ failOnError: false }),
+
+    new StatsWriterPlugin({
+      filename: path.join('..', 'stats', 'log.json'),
+      fields: null,
+      stats: { chunkModules: true },
+    }),
+
+    new Visualizer({
+      filename: path.join('..', 'stats', 'statistics.html'),
+    }),
   ],
   resolve: {
     alias: {
@@ -46,6 +59,7 @@ module.exports = {
       '@store': path.resolve(__dirname, 'src/store'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@views': path.resolve(__dirname, 'src/views'),
+      '@i18n': path.resolve(__dirname, 'src/i18n.js'),
     },
 
     extensions: ['.js', '.jsx'],

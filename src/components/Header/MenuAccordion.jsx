@@ -8,6 +8,7 @@ import {
 } from './Header.styles'
 import { childVariants } from '@utils/animation/MenuAnimationVariants'
 import { motion, useCycle } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 const SubMenuVariants = {
   open: {
@@ -22,12 +23,12 @@ const SubMenuVariants = {
 
 export default function MenuAccordion() {
   const [isOpen, setOpen] = useCycle(false, true)
-
+  const { t } = useTranslation()
   return (
     <MenuAccordionWrapper variants={childVariants}>
       <motion.nav animate={isOpen ? 'open' : 'closed'} intial={false}>
         <MenuButton as={motion.span} onClick={setOpen} open={isOpen}>
-          OUR GAMES
+          {t('our games')}
         </MenuButton>
         <SubMenuItems variants={SubMenuVariants}>
           <MenuAccordionLine />

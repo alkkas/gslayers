@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { colors, fontSizes } from '@components/common/common.styles'
 
 export const Wrapper = styled.div`
-  width: 65px;
+  width: 75px;
   height: auto;
   display: flex;
   justify-content: space-between;
@@ -32,4 +32,10 @@ export const Lang = styled.button`
   font-size: ${fontSizes.l};
   color: ${colors.white};
   opacity: ${props => (props.active ? 1 : 0.5)};
+  &:hover {
+    transform: translate(1px, -1px);
+  }
+  &:active {
+    transform: translate(0, 0);
+  }
 `

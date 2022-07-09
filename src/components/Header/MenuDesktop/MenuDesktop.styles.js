@@ -69,6 +69,7 @@ export const Wrapper = styled.section`
   }
 `
 export const Items = styled.nav`
+  text-transform: uppercase;
   ul {
     display: flex;
     gap: 20px;

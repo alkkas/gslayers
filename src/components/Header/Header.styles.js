@@ -58,7 +58,7 @@ export const MenuBurgerContent = styled(motion.div)`
 
 export const MenuItems = styled(motion.ul)`
   display: flex;
-
+  text-transform: uppercase;
   @media screen and (max-width: ${breakpoints.desktop}) {
     & > * {
       margin: 5px 0;

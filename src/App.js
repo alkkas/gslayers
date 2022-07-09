@@ -10,19 +10,18 @@ import { Provider } from 'react-redux'
 
 export default function App() {
   return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <GlobalCss />
-          <Routes>
-            <Route path="/" element={<Main />}>
-              <Route path="alias" element={<Alias />} />
-              <Route path="jeopardy" element={<Jeopardy />} />
-              <Route path="/" element={<Home />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalCss />
+
+        <Routes>
+          <Route path="/" element={<Main />}>
+            <Route path="alias" element={<Alias />} />
+            <Route path="jeopardy" element={<Jeopardy />} />
+            <Route path="/" element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   )
 }

@@ -7,20 +7,22 @@ import { MenuItem } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
 import ChangeLang from '../ChangeLang/ChangeLang'
+import { useTranslation } from 'react-i18next'
 
 export default function MenuDesktop() {
+  const { t } = useTranslation()
   return (
     <Styles.Wrapper>
       <Styles.MenuContainer>
         <Styles.Items>
           <ul>
             <li>
-              <Styles.Item to="/">HOME</Styles.Item>
+              <Styles.Item to="/">{t('home')}</Styles.Item>
             </li>
             <li>
               <Styles.Menu
                 menuButton={({ open }) => (
-                  <Styles.SubItem open={open}>OUR GAMES</Styles.SubItem>
+                  <Styles.SubItem open={open}>{t('our games')}</Styles.SubItem>
                 )}
                 transition
               >
@@ -36,7 +38,7 @@ export default function MenuDesktop() {
             </li>
             <li>
               <Styles.Creds onClick={Scroll.animateScroll.scrollToBottom}>
-                CREDENTIALS
+                {t('footer')}
               </Styles.Creds>
             </li>
           </ul>

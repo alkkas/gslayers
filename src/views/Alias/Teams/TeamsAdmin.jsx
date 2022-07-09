@@ -19,6 +19,7 @@ import {
   StyledCan,
   StyledCanWrapper,
 } from './Teams.styles'
+import { useTranslation } from 'react-i18next'
 
 export default function TeamsAdmin() {
   const teams = useSelector(state => state.alias.teams)
@@ -28,7 +29,7 @@ export default function TeamsAdmin() {
   const playerTeam = players.find(i => i.id === playerId)
   const currentPlayer = useSelector(state => selectPlayer(state, playerId))
   const dispatch = useDispatch()
-
+  const { t } = useTranslation()
   function TeamTitleChange(team, index, event) {
     if (admin || playerTeam.team === team.id) {
       dispatch(teamNameChange({ index, value: event.target.value }))
@@ -43,7 +44,7 @@ export default function TeamsAdmin() {
             <TeamHeader>
               <TeamTitle
                 value={item.name}
-                placeholder="team name..."
+                placeholder={`${t('teamN')}...`}
                 onChange={event => TeamTitleChange(item, index, event)}
               />
               {admin ||
@@ -60,7 +61,7 @@ export default function TeamsAdmin() {
               {Object.values(item.players).map((id, playerIndex) => {
                 return id === null ? (
                   <PlayerItem empty={true}>
-                    <span>empty</span>
+                    <span>{t('empty')}</span>
 
                     <PlayerJoin
                       onClick={() => {
@@ -87,7 +88,7 @@ export default function TeamsAdmin() {
                 ) : (
                   <PlayerItem>
                     <span>{players.find(item => item.id === id)?.name}</span>
-                    {admin || playerId === id ? (
+                    {admin === playerId || playerId === id ? (
                       <PlayerRemove
                         onClick={() => {
                           dispatch(teamLeave({ playerIndex, teamIndex: index }))

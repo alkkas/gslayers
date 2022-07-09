@@ -11,8 +11,8 @@ export const useDimensions = ref => {
   useLayoutEffect(() => {
     function setRefDimenstions() {
       setDimensions({
-        width: ref.current.offsetWidth,
-        height: ref.current.offsetHeight,
+        width: ref.current?.offsetWidth,
+        height: ref.current?.offsetHeight,
       })
     }
     setRefDimenstions()

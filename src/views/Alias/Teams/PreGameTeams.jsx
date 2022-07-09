@@ -3,29 +3,34 @@ import * as Styles from './Teams.styles'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { selectAllPlayers } from '@/store/alias/aliasSlice'
 import TeamsAdmin from './TeamsAdmin'
-import TeamsPlayers from './TeamsPlayers'
 import { addTeam, statusChange } from '@store/alias/aliasSlice'
 import { GameButton } from '@components'
+import { useTranslation } from 'react-i18next'
 
-export default function PreGameTeams({ admin }) {
+export default function PreGameTeams() {
   const players = useSelector(selectAllPlayers)
   const teams = useSelector(state => state.alias.teams)
-  console.log(teams)
+  const currentPlayer = useSelector(state => state.alias.currentPlayer)
+  const admin = useSelector(state => state.alias.admin)
   const dispatch = useDispatch()
-
+  const { t } = useTranslation()
   return (
     <>
       <TeamsAdmin />
-      <Styles.AddTeam onClick={() => dispatch(addTeam())}>add</Styles.AddTeam>
+      <Styles.AddTeam onClick={() => dispatch(addTeam())}>
+        {t('add')}
+      </Styles.AddTeam>
 
-      {teams.every(item =>
-        Object.values(item.players).every(item => item !== null)
+      {teams.every(
+        item =>
+          Object.values(item.players).every(item => item !== null) &&
+          currentPlayer === admin
       ) ? (
         <div onClick={() => dispatch(statusChange('endRound'))}>
-          <GameButton background="red">START</GameButton>
+          <GameButton background="red">{t('start')}</GameButton>
         </div>
       ) : null}
-      <Styles.PlayersTitle>spectators:</Styles.PlayersTitle>
+      <Styles.PlayersTitle>{t('spectate')}:</Styles.PlayersTitle>
       <Styles.AvailablePlayers>
         {players.map(i => {
           if (!i.team) {

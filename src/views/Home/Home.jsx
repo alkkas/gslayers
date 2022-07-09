@@ -1,6 +1,5 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-
+import i18n from '@i18n'
 import {
   Container,
   Title,
@@ -29,10 +28,10 @@ import {
 } from './Home.styles'
 import { Link } from 'react-router-dom'
 import * as Scroll from 'react-scroll'
+import { useTranslation } from 'react-i18next'
 
 export default function Home() {
   const { t } = useTranslation()
-
   return (
     <HomeWrapper>
       <Symbol right={-60} top={-50} color="purp">
@@ -59,7 +58,7 @@ export default function Home() {
 
         <HomeMain as="main">
           <Scroll.Element name="games">
-            <HomeMainTitle>GAMES</HomeMainTitle>
+            <HomeMainTitle>{t('our games')}</HomeMainTitle>
           </Scroll.Element>
           <HomeItems>
             <HomeItem>
@@ -68,7 +67,7 @@ export default function Home() {
                 <StyledAliasImg viewBox="0 0 243 170" />
               </HomeItemImg>
               <Link to="/alias">
-                <GameButton>PLAY</GameButton>
+                <GameButton>{t('play')}</GameButton>
               </Link>
             </HomeItem>
             <HomeItem>
@@ -77,7 +76,7 @@ export default function Home() {
                 <StyledJeopardyImg viewBox="0 0 255 178" />
               </HomeItemImg>
               <Link to="/jeopardy">
-                <GameButton color="green">PLAY</GameButton>
+                <GameButton color="green">{t('play')}</GameButton>
               </Link>
             </HomeItem>
           </HomeItems>

@@ -1,12 +1,14 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import * as Styles from './Footer.styles'
 
 export default function Footer() {
+  const { t } = useTranslation()
   return (
     <Styles.Wrapper>
       <Styles.FooterContainer>
         <Styles.Item>
-          <Styles.FooterSubTitle>Contact us:</Styles.FooterSubTitle>
+          <Styles.FooterSubTitle>{t('contact')}:</Styles.FooterSubTitle>
           <ul>
             <li>
               <Styles.SubItem
@@ -29,7 +31,7 @@ export default function Footer() {
           </ul>
         </Styles.Item>
         <Styles.Item>
-          <Styles.FooterSubTitle>Support project:</Styles.FooterSubTitle>
+          <Styles.FooterSubTitle>{t('support')}:</Styles.FooterSubTitle>
           <ul>
             <li>
               <Styles.SubItem
@@ -37,13 +39,13 @@ export default function Footer() {
                 target="_blanck"
                 href="https://buymeacoffee.com/gslayers"
               >
-                buy us a coffee
+                {t('coffee')}
               </Styles.SubItem>
             </li>
           </ul>
         </Styles.Item>
       </Styles.FooterContainer>
-      <Styles.Rights>© All rights received</Styles.Rights>
+      <Styles.Rights>© {t('rights')}</Styles.Rights>
     </Styles.Wrapper>
   )
 }

@@ -10,6 +10,7 @@ import {
   setCurrentTeam,
   reverseOrder,
 } from '@store/alias/aliasSlice'
+import { useTranslation } from 'react-i18next'
 
 const StartTeams = enhancedTeams(RoundStartTeams)
 
@@ -24,39 +25,60 @@ export default function GameStart() {
   const currentTeam = teams.find(team => team.id === currentTeamId) || teams[0]
   const currentPlayer = useSelector(state => state.alias.currentPlayer)
   const explainingPlayer = currentTeam.players[currentTeam.explaining]
-
+  const admin = useSelector(state => state.alias.admin)
+  const { t } = useTranslation()
   useEffect(() => {
+    console.log('endRound')
     if (!wordsSettled) {
-      // dispatch(statusChange('loading'))
       dispatch(fetchWords())
     }
 
-    if (currentPlayer === explainingPlayer) {
+    if (currentPlayer === admin) {
       dispatch(statusChange('loading'))
       const winners = []
+      let winner = null
+      console.log(rounds, teamsCount)
       if (rounds % teamsCount === 0 && rounds !== 0) {
         teams.forEach(i => {
           if (i.points >= points) {
             winners.push(i)
           }
         })
+
+        console.log(winners)
+        if (winners.length) {
+          let completeWinner = winners[0]
+          let maxPoints = winners[0].points
+          for (let i = 1; i < winners.length; i++) {
+            if (winners[i].points > maxPoints) {
+              completeWinner = winners[i]
+              maxPoints = winners[i].points
+            } else if (winners[i].points === maxPoints) {
+              completeWinner = null
+            }
+            console.log('cw', i, completeWinner, winner)
+          }
+
+          winner = completeWinner
+        }
       }
-      if (winners.length === 1) {
+      if (winner) {
         dispatch(statusChange('win'))
         dispatch(setWinner(winners[0].id))
       } else {
         dispatch(setCurrentTeam(teams[(rounds + 1) % teams.length].id))
         dispatch(statusChange('endRound'))
       }
-      dispatch(reverseOrder())
     }
-  })
+  }, [])
   return (
     <div style={{ margin: '-20px 0 80px' }}>
       <StartTeams />
-      <GameButton click={() => dispatch(statusChange('game'))}>
-        start
-      </GameButton>
+      {currentPlayer === explainingPlayer ? (
+        <GameButton click={() => dispatch(statusChange('game'))}>
+          {t('start')}
+        </GameButton>
+      ) : null}
     </div>
   )
 }

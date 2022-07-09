@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getData } from '@services/alias/sendReq'
 import * as Styles from './Alias.styles'
 import { setValues, getValue } from '@services/localStorage'
@@ -13,20 +13,26 @@ import {
   setPlayerFields,
   setAdminFields,
 } from '@store/alias/aliasSlice'
+import { useTranslation } from 'react-i18next'
 
 export default function AliasPopUp() {
   const prevValue = getValue('name')
   const [searchParams, setSearchParams] = useSearchParams()
+  const [lobby, setLobby] = useState(null)
   const [value, setValue] = useState(prevValue ? prevValue : '')
+  const { t } = useTranslation()
   const dispatch = useDispatch()
+  useEffect(() => {
+    setLobby(searchParams.get('lobby'))
+  })
   async function joinLobby() {
     if (value.match(/^(?!\s*$).+/)) {
       setValues({ name: value })
-      const lobby = searchParams.get('lobby')
+
       dispatch(statusChange('loading'))
       if (lobby) {
         const data = await getData(
-          `http://26.195.134.149:8000/alias/?lobby=${lobby}&name=${value}`
+          `https://api.gslayers.ru/alias/?lobby=${lobby}&name=${value}`
         )
         console.log(data)
         if (data.exist) {
@@ -38,7 +44,7 @@ export default function AliasPopUp() {
         }
       } else {
         const data = await getData(
-          `http://26.195.134.149:8000/alias/?newLobby=true&name=${value}`
+          `https://api.gslayers.ru/alias/?newLobby=true&name=${value}`
         )
         console.log(data)
         dispatch(setAdminFields(data))
@@ -52,9 +58,11 @@ export default function AliasPopUp() {
       <Styles.PopUpInput
         value={value}
         onChange={event => setValue(event.target.value)}
-        placeholder="your name..."
+        placeholder={`${t('name')}...`}
       />
-      <Styles.PopUpButton onClick={joinLobby}>Join</Styles.PopUpButton>
+      <Styles.PopUpButton onClick={joinLobby}>
+        {lobby ? t('join') : t('create')}
+      </Styles.PopUpButton>
     </Styles.PopUpWrapper>
   )
 }

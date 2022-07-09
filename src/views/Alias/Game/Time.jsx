@@ -4,16 +4,20 @@ import * as Styles from './Games.styles'
 import { useDimensions } from '@utils/hooks/useDimensions'
 import Moves from './Moves'
 import { useSelector, useDispatch } from 'react-redux'
-import { statusChange } from '@store/alias/aliasSlice'
+import {
+  statusChange,
+  teamPointsChange,
+  reverseOrder,
+} from '@store/alias/aliasSlice'
 
-export default function Time() {
+export default function Time({ disabled }) {
   const startTime = useSelector(state => state.alias.settings.time)
+  const dispatch = useDispatch()
   const { time, start, pause, reset, status } = useTimer({
     initialTime: startTime,
     endTime: 0,
     timerType: 'DECREMENTAL',
   })
-  const dispatch = useDispatch()
   const wrapper = useRef(null)
   const { width } = useDimensions(wrapper)
 
@@ -24,7 +28,15 @@ export default function Time() {
   useEffect(() => {
     start()
   }, [])
+  useEffect(() => {
+    console.log(status)
+    if (status === 'STOPPED' && time < startTime && !disabled) {
+      dispatch(teamPointsChange())
+      dispatch(reverseOrder())
 
+      dispatch(statusChange('endRound'))
+    }
+  })
   return (
     <>
       <Styles.Wrapper ref={wrapper}>

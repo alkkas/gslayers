@@ -16,7 +16,5 @@ export default function AliasUi() {
   const [status, setStatus] = useState('loading')
   const dispatch = useDispatch()
 
-  useEffect(async () => {})
-
   return <>{admin === currentPlayer ? <AdminUi /> : <PlayerUi />}</>
 }

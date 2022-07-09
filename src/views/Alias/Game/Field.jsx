@@ -1,23 +1,22 @@
 import React, { useRef, useEffect, useState } from 'react'
 import * as Styles from './Games.styles'
+import { useSelector } from 'react-redux'
 import { useDimensions } from '@utils/hooks/useDimensions'
 import { getCoords } from '@services/getCoords'
-import { StyleSheetConsumer } from 'styled-components'
-import { useSelector } from 'react-redux'
 
-export default function Field({ word }) {
+const Field = ({ word, player, guess }) => {
   const words = useSelector(state => state.alias.words)
+
   const wrapper = useRef(null)
   const { width, height } = useDimensions(wrapper)
 
-  let wordsCoords = getCoords(width, height, words)
-
+  let [wordsCoords, setWordsCoords] = useState(null)
   useEffect(() => {
-    console.log(wordsCoords)
-  })
+    setWordsCoords(getCoords(width, height, words))
+  }, [width])
   return (
     <Styles.Field ref={wrapper}>
-      {wordsCoords.map(i => (
+      {wordsCoords?.map(i => (
         <Styles.Word
           opacity={i.opacity}
           fontSize={i.fontSize}
@@ -27,7 +26,8 @@ export default function Field({ word }) {
           {i.word}
         </Styles.Word>
       ))}
-      <Styles.MainWord>{word}</Styles.MainWord>
+      <Styles.MainWord filter={player === guess}>{word}</Styles.MainWord>
     </Styles.Field>
   )
 }
+export default Field

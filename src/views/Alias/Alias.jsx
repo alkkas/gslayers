@@ -14,7 +14,6 @@ import AliasPopUp from './AliasPopUp'
 export default function Alias() {
   const status = useSelector(selectStatus)
 
-  useEffect(() => console.log(status))
   function renderState() {
     switch (status) {
       case 'loading':

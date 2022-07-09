@@ -12,6 +12,7 @@ import * as Scroll from 'react-scroll'
 import MenuAccordion from './MenuAccordion'
 import { childVariants } from '@utils/animation/MenuAnimationVariants'
 import ChangeLang from './ChangeLang/ChangeLang'
+import { useTranslation } from 'react-i18next'
 
 const menuVariants = {
   open: (height = 1000) => ({
@@ -45,7 +46,7 @@ const childrenDelay = {
 export default function Menu({ toggle }) {
   const containerRef = useRef(null)
   const { height } = useDimensions(containerRef)
-
+  const { t } = useTranslation()
   //when user clicks menu button, menu closes
   function handleClick(e) {
     if (e.target.tagName == 'A') {
@@ -65,12 +66,12 @@ export default function Menu({ toggle }) {
       <nav>
         <MenuItems variants={childrenDelay}>
           <motion.li variants={childVariants}>
-            <MenuItem to="/">HOME</MenuItem>
+            <MenuItem to="/">{t('home')}</MenuItem>
           </motion.li>
           <MenuAccordion />
           <motion.li variants={childVariants}>
             <Creds onClick={Scroll.animateScroll.scrollToBottom}>
-              CREDENTIALS
+              {t('footer')}
             </Creds>
           </motion.li>
         </MenuItems>

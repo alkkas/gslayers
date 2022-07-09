@@ -3,7 +3,11 @@ import { store } from '@store/store'
 
 let socketStarted = false
 export const socketMiddleware = state => next => action => {
-  if (store.getState().alias.lobbyId && !socketStarted) {
+  if (
+    store.getState().alias.lobbyId &&
+    !socketStarted &&
+    store.getState().alias.currentPlayer
+  ) {
     startSocket(store, store.getState().alias.lobbyId)
     socketStarted = true
   }

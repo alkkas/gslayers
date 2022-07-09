@@ -1,23 +1,21 @@
 import {
   createSlice,
   createAsyncThunk,
-  createSelector,
   createEntityAdapter,
 } from '@reduxjs/toolkit'
 export const aliasAdapter = createEntityAdapter()
 import { v4 as uuidv4 } from 'uuid'
-
 const players = {
-  10: {
-    id: 10,
-    name: 'player1',
-    team: 2,
-  },
-  20: {
-    id: 20,
-    name: 'player2',
-    team: 2,
-  },
+  // 10: {
+  //   id: 10,
+  //   name: 'player1',
+  //   team: 2,
+  // },
+  // 20: {
+  //   id: 20,
+  //   name: 'player2',
+  //   team: 2,
+  // },
   // 30: {
   //   id: 30,
   //   name: 'player3',
@@ -31,10 +29,10 @@ const players = {
 }
 
 const initialState = aliasAdapter.getInitialState({
-  status: 'win',
-  currentPlayer: 10,
-  admin: 10,
-  lobbyId: 'adsfasdf',
+  status: 'inputName',
+  currentPlayer: null,
+  admin: null,
+  lobbyId: null,
   wordsSettled: false,
   winner: null,
   rounds: 0,
@@ -47,23 +45,11 @@ const initialState = aliasAdapter.getInitialState({
   },
   words: [],
   settings: {
-    points: 30,
-    time: 30,
-    mode: 'medium',
+    points: 15,
+    time: 15,
+    mode: 'easy',
   },
-  teams: [
-    {
-      id: 2,
-      name: 'asdfasd',
-      points: 0,
-      players: {
-        0: 10,
-        1: 20,
-      },
-      guessing: 0,
-      explaining: 1,
-    },
-  ],
+  teams: [],
 })
 
 export const fetchPlayers = createAsyncThunk(
@@ -79,12 +65,12 @@ export const fetchWords = createAsyncThunk(
     console.log('fetching')
     const lobbyId = getState().alias.lobbyId
     const response = await fetch(
-      `http://26.195.134.149:8000/words?lobby=${lobbyId}`
+      `https://api.gslayers.ru/words?lobby=${lobbyId}`
     )
 
     const data = await response.json()
     await fetch(
-      `http://26.195.134.149:8000/words?lobby=${lobbyId}&wordsFetched=true`
+      `https://api.gslayers.ru/words?lobby=${lobbyId}&wordsFetched=true`
     )
     console.log(data)
     return data
@@ -102,6 +88,9 @@ const aliasSlice = createSlice({
     // {
     //   currentPlayer, settings, teams, players
     // }
+    setTranslation(state, action) {
+      state.t = action.payload
+    },
     wordsSettled(state, _) {
       state.wordsSettled = true
     },
@@ -194,8 +183,8 @@ const aliasSlice = createSlice({
           0: null,
           1: null,
         },
-        guessing: 1,
-        explaining: 2,
+        guessing: 0,
+        explaining: 1,
       })
     },
     teamNameChange(state, action) {
@@ -252,6 +241,7 @@ const aliasSlice = createSlice({
       })
       .addCase(fetchWords.fulfilled, (state, action) => {
         state.words = action.payload.words
+        state.wordsSettled = true
       })
   },
 })
@@ -271,6 +261,7 @@ export const {
   teamJoin,
   addTeam,
   cleanUp,
+  setTranslation,
   setCurrentTeam,
   setRules,
   playerJoin,

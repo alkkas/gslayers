@@ -5,6 +5,7 @@ import { GameButton } from '@components'
 import JSConfetti from 'js-confetti'
 import { useDispatch, useSelector } from 'react-redux'
 import { cleanUp, statusChange } from '@store/alias/aliasSlice'
+import { useTranslation } from 'react-i18next'
 const WinTitle = styled.h1`
   font-weight: 900;
   font-size: 50px;
@@ -12,6 +13,7 @@ const WinTitle = styled.h1`
   color: ${colors.white};
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 40px;
   span {
     color: ${colors.orange};
   }
@@ -22,14 +24,18 @@ const WinTitle = styled.h1`
 export default function WinScreen() {
   const dispatch = useDispatch()
   const winnerId = useSelector(state => state.alias.winner)
+  const admin = useSelector(state => state.alias.admin)
+  const player = useSelector(state => state.alias.currentPlayer)
+
   const winner = useSelector(state => state.alias.teams).find(
     team => team.id === winnerId
   )
+  const { t } = useTranslation()
   function handleClick() {
     dispatch(cleanUp())
     dispatch(statusChange('preGame'))
   }
-  useEffect(async () => {
+  useEffect(() => {
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti({
       confettiColors: ['#9883BF', '#F49497', '#FCC566', '#3CBDA4', '#EF3F6F'],
@@ -38,22 +44,18 @@ export default function WinScreen() {
       jsConfetti.addConfetti({
         confettiColors: ['#9883BF', '#F49497', '#FCC566', '#3CBDA4', '#EF3F6F'],
       })
-    }, 500)
-    setTimeout(() => {
-      jsConfetti.addConfetti({
-        confettiColors: ['#9883BF', '#F49497', '#FCC566', '#3CBDA4', '#EF3F6F'],
-      })
-    }, 1000)
+    }, 800)
   })
   return (
     <div style={{ margin: '80px 0 200px' }}>
       <WinTitle>
-        {'winner.name'} <br /> <span>Won!</span>
+        {winner?.name} <br /> <span>{t('win')}</span>
       </WinTitle>
-
-      <GameButton background="green" click={handleClick}>
-        play again
-      </GameButton>
+      {admin === player ? (
+        <GameButton background="green" click={handleClick}>
+          {t('again')}
+        </GameButton>
+      ) : null}
     </div>
   )
 }
