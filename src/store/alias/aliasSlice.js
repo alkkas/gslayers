@@ -104,9 +104,9 @@ const aliasSlice = createSlice({
       state.rounds = state.rounds + 1
     },
     cleanUp(state, _) {
+      state.rounds = 0
       state.teams = state.teams.map(team => {
         team.points = 0
-        team.rounds = 0
         return team
       })
     },
