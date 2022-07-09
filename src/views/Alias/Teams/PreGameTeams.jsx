@@ -21,10 +21,10 @@ export default function PreGameTeams() {
         {t('add')}
       </Styles.AddTeam>
 
-      {teams.every(
-        item =>
-          Object.values(item.players).every(item => item !== null) &&
-          currentPlayer === admin
+      {currentPlayer === admin &&
+      teams.length !== 0 &&
+      teams.every(item =>
+        Object.values(item.players).every(item => item !== null)
       ) ? (
         <div onClick={() => dispatch(statusChange('endRound'))}>
           <GameButton background="red">{t('start')}</GameButton>
