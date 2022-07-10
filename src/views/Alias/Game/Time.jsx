@@ -31,10 +31,9 @@ export default function Time({ disabled }) {
   useEffect(() => {
     console.log(status)
     if (status === 'STOPPED' && time < startTime && !disabled) {
+      dispatch(statusChange('endRound'))
       dispatch(teamPointsChange())
       dispatch(reverseOrder())
-
-      dispatch(statusChange('endRound'))
     }
   })
   return (
