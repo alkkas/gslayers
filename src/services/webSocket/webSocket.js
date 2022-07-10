@@ -42,8 +42,6 @@ export function startSocket(store, lobbyId) {
             key !== 'wordsSettled' &&
             key !== 'words'
           ) {
-            console.log(key)
-
             debounceObj.entities[key] = currentValues[key]
           }
         }

@@ -32,12 +32,12 @@ export default function GameStart() {
     if (!wordsSettled) {
       dispatch(fetchWords())
     }
-
+  }, [])
+  useEffect(() => {
     if (currentPlayer === admin) {
       dispatch(statusChange('loading'))
       const winners = []
       let winner = null
-      console.log(rounds, teamsCount)
       if (rounds % teamsCount === 0 && rounds !== 0) {
         teams.forEach(i => {
           if (i.points >= points) {
@@ -56,7 +56,6 @@ export default function GameStart() {
             } else if (winners[i].points === maxPoints) {
               completeWinner = null
             }
-            console.log('cw', i, completeWinner, winner)
           }
 
           winner = completeWinner
@@ -66,11 +65,12 @@ export default function GameStart() {
         dispatch(statusChange('win'))
         dispatch(setWinner(winners[0].id))
       } else {
-        dispatch(setCurrentTeam(teams[(rounds + 1) % teams.length].id))
+        console.log('teamsChange', rounds % teams.length)
+        dispatch(setCurrentTeam(teams[rounds % teams.length].id))
         dispatch(statusChange('endRound'))
       }
     }
-  }, [])
+  })
   return (
     <div style={{ margin: '-20px 0 80px' }}>
       <StartTeams />
