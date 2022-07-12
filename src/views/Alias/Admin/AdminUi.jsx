@@ -28,7 +28,7 @@ export default function AdminUi() {
   let timer
   const dispatch = useDispatch()
   const link =
-    'https://gslayers.surge.sh/alias?lobby=' +
+    'https://gslayers.ru/alias?lobby=' +
     useSelector(state => state.alias.lobbyId)
   const [animateCopy, setAnimateCopy] = useState(false)
 

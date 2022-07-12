@@ -175,17 +175,19 @@ const aliasSlice = createSlice({
       state.status = action.payload
     },
     addTeam(state, _) {
-      state.teams.push({
-        id: uuidv4(),
-        name: '',
-        points: 0,
-        players: {
-          0: null,
-          1: null,
-        },
-        guessing: 0,
-        explaining: 1,
-      })
+      if (state.teams.length < 20) {
+        state.teams.push({
+          id: uuidv4(),
+          name: '',
+          points: 0,
+          players: {
+            0: null,
+            1: null,
+          },
+          guessing: 0,
+          explaining: 1,
+        })
+      }
     },
     teamNameChange(state, action) {
       const { value, index } = action.payload
