@@ -30,7 +30,7 @@ export default function Alias() {
         return <WinScreen />
 
       default:
-        return <Error info="you encountered with troubles!" />
+        return <Error info={status} />
     }
   }
 

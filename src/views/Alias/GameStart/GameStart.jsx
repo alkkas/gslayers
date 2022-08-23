@@ -26,11 +26,12 @@ export default function GameStart() {
   const currentPlayer = useSelector(state => state.alias.currentPlayer)
   const explainingPlayer = currentTeam.players[currentTeam.explaining]
   const admin = useSelector(state => state.alias.admin)
+  const lobbyId = useSelector(state => state.alias.lobbyId)
   const { t } = useTranslation()
   useEffect(() => {
     console.log('endRound')
     if (!wordsSettled) {
-      dispatch(fetchWords())
+      dispatch(fetchWords(lobbyId))
     }
   }, [])
   useEffect(() => {

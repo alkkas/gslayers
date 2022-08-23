@@ -6,6 +6,7 @@ import JSConfetti from 'js-confetti'
 import { useDispatch, useSelector } from 'react-redux'
 import { cleanUp, statusChange } from '@store/alias/aliasSlice'
 import { useTranslation } from 'react-i18next'
+import { useAppDispatch } from '../../../store/hooks'
 const WinTitle = styled.h1`
   font-weight: 900;
   font-size: 50px;
@@ -22,7 +23,7 @@ const WinTitle = styled.h1`
   }
 `
 export default function WinScreen() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const winnerId = useSelector(state => state.alias.winner)
   const admin = useSelector(state => state.alias.admin)
   const player = useSelector(state => state.alias.currentPlayer)
