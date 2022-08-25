@@ -65,6 +65,7 @@ module.exports = {
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@views': path.resolve(__dirname, 'src/views'),
       '@i18n': path.resolve(__dirname, 'src/i18n.js'),
+      '@models': path.resolve(__dirname, 'src/models'),
     },
 
     extensions: ['.tsx', '.ts', '.js', '.jsx'],

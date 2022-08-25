@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { statusChange } from '@store/alias/aliasSlice'
+import { statusChange } from '@store/alias/mainSlice'
 import { store } from '@store/store'
 
 export async function sendReq(url, data, method = 'POST') {

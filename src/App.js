@@ -5,7 +5,7 @@ import Main from './Main'
 import GlobalCss from './Global.css'
 import { Routes, Route } from 'react-router-dom'
 import { Home, Alias, Jeopardy } from '@views'
-import { store } from './store/store'
+import { store } from './store/store.ts'
 import { Provider } from 'react-redux'
 
 

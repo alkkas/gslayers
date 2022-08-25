@@ -4,7 +4,7 @@ import { colors, breakpoints } from '@components/common/common.styles'
 import { GameButton } from '@components'
 import JSConfetti from 'js-confetti'
 import { useDispatch, useSelector } from 'react-redux'
-import { cleanUp, statusChange } from '@store/alias/aliasSlice'
+import { cleanUp, statusChange } from '@store/alias/mainSlice'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '../../../store/hooks'
 const WinTitle = styled.h1`

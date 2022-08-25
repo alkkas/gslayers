@@ -4,7 +4,7 @@ import { Header, Footer } from '@components'
 // import { hot } from 'react-hot-loader/root'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ReactSession } from 'react-client-session'
-import { fetchPlayers } from '@store/alias/aliasSlice'
+import { fetchPlayers } from '@store/alias/mainSlice'
 import { useDispatch } from 'react-redux'
 function Main() {
   ReactSession.setStoreType('localStorage')

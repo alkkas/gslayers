@@ -7,7 +7,7 @@ import {
   teamJoin,
   selectPlayer,
   deleteTeam,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 import {
   PlayerItem,
   PlayerJoin,

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import aliasReducer from './alias/aliasSlice'
+import aliasReducer from './alias/mainSlice'
 import { socketMiddleware } from './alias/socketMIddleware'
 import _ from 'lodash'
 import storage from 'redux-persist/lib/storage'

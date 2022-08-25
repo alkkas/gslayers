@@ -7,6 +7,8 @@ import {
 export const aliasAdapter = createEntityAdapter()
 import { v4 as uuidv4 } from 'uuid'
 import { RootState } from '../store'
+import { stateType } from '@models/alias.model'
+
 const players = {
   // 10: {
   //   id: 10,
@@ -29,71 +31,14 @@ const players = {
   //   team: 1,
   // },
 }
-
-interface NormalizedObjs<T> {
-  entites: { [id: string]: T }
-  ids: string[]
-}
-interface playerType {
-  id: string
-  name: string
-  team: string
-}
-interface teamType {
-  id: string
-  name: string
-  points: number
-  players: {
-    0: string
-    1: string
-  }
-  guessing: 0 | 1
-  explaining: 0 | 1
-}
-
-interface stateType {
-  status:
-    | 'loading'
-    | 'inputName'
-    | 'preGame'
-    | 'game'
-    | 'endRound'
-    | 'win'
-    | 'error'
-  currentPlayer: string
-  admin: string
-  lobbyId: string
-  wordsSettled: boolean
-  winner: string
-  rounds: number
-  currentTeam: string
-  socketStarted: boolean
-  currentSession: {
-    skipped: number
-    guessed: number
-    currentWord: string
-    usedWords: string[]
-  }
-  words: string[]
-  settings: {
-    points: number
-    time: number
-    mode: 'easy' | 'medium' | 'hard'
-  }
-  teams: teamType[]
-  players?: playerType[]
-  [index: string]: any
-}
-
 const typedInitialState: stateType = {
   status: 'inputName',
   currentPlayer: null,
   admin: null,
   lobbyId: null,
+  //players
+
   wordsSettled: false,
-  winner: null,
-  rounds: 0,
-  currentTeam: null,
   socketStarted: false,
   currentSession: {
     skipped: 0,
@@ -102,11 +47,10 @@ const typedInitialState: stateType = {
     usedWords: [],
   },
   words: [],
-  settings: {
-    points: 15,
-    time: 15,
-    mode: 'easy',
-  },
+
+  winner: null,
+  rounds: 0,
+  currentTeam: null,
   teams: [],
 }
 const initialState = aliasAdapter.getInitialState(typedInitialState)
@@ -120,7 +64,7 @@ export const fetchPlayers = createAsyncThunk(
 
 export const fetchWords = createAsyncThunk(
   'alias/fetchWords',
-  async lobbyId => {
+  async (lobbyId: string) => {
     const response = await fetch(
       `https://api.gslayers.ru/words?lobby=${lobbyId}`
     )
@@ -188,9 +132,9 @@ const aliasSlice = createSlice({
     changeCurrentPlayer(state, action) {
       state.currentPlayer = action.payload
     },
-    // socketStarted(state, action) {
-    //   state.socketStarted = action.payload
-    // },
+    socketStarted(state, action) {
+      state.socketStarted = action.payload
+    },
     changeFields(state, action: PayloadAction<Partial<stateType>>) {
       const data: Partial<stateType> = action.payload
       Object.keys(data).forEach(key => {
@@ -221,15 +165,6 @@ const aliasSlice = createSlice({
       state.teams = teams
       state.settings = settings
       aliasAdapter.setAll(state, players)
-    },
-    pointsChange(state, action) {
-      state.settings.points = action.payload
-    },
-    timeChange(state, action) {
-      state.settings.time = action.payload
-    },
-    modeChange(state, action) {
-      state.settings.mode = action.payload
     },
     statusChange(state, action) {
       state.status = action.payload
@@ -308,7 +243,7 @@ const aliasSlice = createSlice({
       .addCase(fetchPlayers.fulfilled, (state, action) => {
         aliasAdapter.setAll(state, action.payload)
       })
-      .addCase(fetchWords.pending, (state, action) => {
+      .addCase(fetchWords.pending, (state, _) => {
         state.status = 'loading'
       })
       .addCase(fetchWords.fulfilled, (state, action) => {
@@ -321,12 +256,11 @@ const aliasSlice = createSlice({
 export const selectStatus = (state: RootState) => state.alias.status
 export const {
   statusChange,
-  pointsChange,
+
   reverseOrder,
   teamPointsChange,
   increaseRounds,
-  timeChange,
-  modeChange,
+
   teamNameChange,
   sessionChange,
   teamLeave,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import RoundStartTeams from '../Teams/RoundStartTeams'
 import enhancedTeams from '../Teams/Teams'
-import { GameButton } from '@components'
+import { GameButton } from '@components/index'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   statusChange,
@@ -9,24 +9,24 @@ import {
   setWinner,
   setCurrentTeam,
   reverseOrder,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 import { useTranslation } from 'react-i18next'
-
+import { useAppSelector, useAppDispatch } from '@store/hooks'
 const StartTeams = enhancedTeams(RoundStartTeams)
 
 export default function GameStart() {
-  const dispatch = useDispatch()
-  const wordsSettled = useSelector(state => state.alias.wordsSettled)
-  const teams = useSelector(state => state.alias.teams)
-  const rounds = useSelector(state => state.alias.rounds)
-  const points = useSelector(state => state.alias.settings.points)
+  const dispatch = useAppDispatch()
+  const wordsSettled = useAppSelector(state => state.alias.wordsSettled)
+  const teams = useAppSelector(state => state.alias.teams)
+  const rounds = useAppSelector(state => state.alias.rounds)
+  const points = useAppSelector(state => state.alias.settings.points)
   const teamsCount = teams.length
-  const currentTeamId = useSelector(state => state.alias.currentTeam)
+  const currentTeamId = useAppSelector(state => state.alias.currentTeam)
   const currentTeam = teams.find(team => team.id === currentTeamId) || teams[0]
-  const currentPlayer = useSelector(state => state.alias.currentPlayer)
+  const currentPlayer = useAppSelector(state => state.alias.currentPlayer)
   const explainingPlayer = currentTeam.players[currentTeam.explaining]
-  const admin = useSelector(state => state.alias.admin)
-  const lobbyId = useSelector(state => state.alias.lobbyId)
+  const admin = useAppSelector(state => state.alias.admin)
+  const lobbyId = useAppSelector(state => state.alias.lobbyId)
   const { t } = useTranslation()
   useEffect(() => {
     console.log('endRound')
@@ -37,7 +37,7 @@ export default function GameStart() {
   useEffect(() => {
     if (currentPlayer === admin) {
       dispatch(statusChange('loading'))
-      const winners = []
+      const winners: teamType[] = []
       let winner = null
       if (rounds % teamsCount === 0 && rounds !== 0) {
         teams.forEach(i => {

@@ -12,7 +12,7 @@ import {
   setRules,
   setPlayerFields,
   setAdminFields,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 import { useTranslation } from 'react-i18next'
 
 export default function AliasPopUp() {

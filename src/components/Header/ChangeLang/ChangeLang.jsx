@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as Styles from './ChangeLang.styles'
 import i18n from '../../../index'
-import { setTranslation } from '@store/alias/aliasSlice'
+import { setTranslation } from '@store/alias/mainSlice'
 import { useDispatch } from 'react-redux'
 
 export default function ChangeLang({ desktop }) {

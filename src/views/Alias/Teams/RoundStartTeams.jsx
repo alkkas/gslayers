@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import * as Styles from './Teams.styles'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectAllPlayers } from '@store/alias/aliasSlice'
+import { selectAllPlayers } from '@store/alias/mainSlice'
 import { random } from 'lodash'
 import {
   statusChange,
   setWinner,
   setCurrentTeam,
   reverseOrder,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 import { useTranslation } from 'react-i18next'
 
 export default function RoundStartTeams() {

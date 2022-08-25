@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import * as Styles from './Teams.styles'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
-import { selectAllPlayers } from '@/store/alias/aliasSlice'
+import { selectAllPlayers } from '@store/alias/mainSlice'
 import TeamsAdmin from './TeamsAdmin'
-import { addTeam, statusChange } from '@store/alias/aliasSlice'
+import { addTeam, statusChange } from '@store/alias/mainSlice'
 import { GameButton } from '@components'
 import { useTranslation } from 'react-i18next'
 

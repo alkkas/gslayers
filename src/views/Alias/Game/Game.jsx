@@ -9,7 +9,7 @@ import {
   teamPointsChange,
   sessionChange,
   reverseOrder,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { random } from 'lodash'
 import { useTranslation } from 'react-i18next'

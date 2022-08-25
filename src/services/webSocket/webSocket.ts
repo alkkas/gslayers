@@ -5,8 +5,9 @@ import {
   statusChange,
   sessionChange,
   wordsSettled,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 import { isEmpty } from 'lodash'
+
 export const debounceObj = {
   entities: {},
   prevValues: {},
@@ -62,4 +63,15 @@ export function startSocket(store, lobbyId) {
       }
     }
   }
+}
+
+let socket: WebSocket
+
+export function getSocket(lobbyId?: string, currentPlayer?: string): WebSocket {
+  if (!socket) {
+    socket = new WebSocket(
+      `wss://api.gslayers.ru/ws/${lobbyId}_${currentPlayer}/`
+    )
+  }
+  return socket
 }

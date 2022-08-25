@@ -1,4 +1,4 @@
-import aliasSlice from './alias/aliasSlice'
+import aliasSlice from './alias/aliasReducer'
 import { combineReducers } from '@reduxjs/toolkit'
 
 const rootReducer = combineReducers({ alias: aliasSlice })

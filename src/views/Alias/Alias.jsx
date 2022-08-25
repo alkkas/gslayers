@@ -8,7 +8,7 @@ import GameStart from './GameStart/GameStart'
 import WinScreen from './WinScreen/WinScreen'
 
 import { useSelector } from 'react-redux'
-import { selectStatus } from '@store/alias/aliasSlice'
+import { selectStatus } from '@store/alias/mainSlice'
 import AliasPopUp from './AliasPopUp'
 
 export default function Alias() {

@@ -7,6 +7,19 @@
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@store/*": ["store/*"],
+      "@components/*": ["components/*"],
+      "@assets/*": ["assets/*"],
+      "@models/*": ["models/*"],
+      "@services/*": ["services/*"]
+      // '@services': path.resolve(__dirname, 'src/services'),
+      // '@store': path.resolve(__dirname, 'src/store'),
+      // '@utils': path.resolve(__dirname, 'src/utils'),
+      // '@views': path.resolve(__dirname, 'src/views'),
+      // '@i18n': path.resolve(__dirname, 'src/i18n.js'),
+    }
   }
 }

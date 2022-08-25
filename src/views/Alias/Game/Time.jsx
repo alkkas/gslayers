@@ -8,7 +8,7 @@ import {
   statusChange,
   teamPointsChange,
   reverseOrder,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 
 export default function Time({ disabled }) {
   const startTime = useSelector(state => state.alias.settings.time)

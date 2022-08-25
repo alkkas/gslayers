@@ -15,7 +15,7 @@ import {
   pointsChange,
   modeChange,
   linkChange,
-} from '@store/alias/aliasSlice'
+} from '@store/alias/mainSlice'
 import { sendReq } from '@services/alias/sendReq'
 import { useTranslation } from 'react-i18next'
 const AdminTeams = enhancedTeams(PreGameTeams)
