@@ -14,7 +14,8 @@
       "@components/*": ["components/*"],
       "@assets/*": ["assets/*"],
       "@models/*": ["models/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@views/*": ["views/*"],
       // '@services': path.resolve(__dirname, 'src/services'),
       // '@store': path.resolve(__dirname, 'src/store'),
       // '@utils': path.resolve(__dirname, 'src/utils'),

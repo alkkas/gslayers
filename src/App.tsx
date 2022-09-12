@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import Main from './Main'
 import GlobalCss from './Global.css'
 import { Routes, Route } from 'react-router-dom'
-import { Home, Alias, Jeopardy } from '@views'
+import { Home, Alias, Jeopardy } from '@views/index'
 import { store } from './store/store.ts'
 import { Provider } from 'react-redux'
 

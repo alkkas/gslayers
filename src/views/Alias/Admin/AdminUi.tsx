@@ -1,43 +1,40 @@
-import React, { useState, useCallback } from 'react'
-import Teams from '../Teams/Teams'
+import React, { useState } from 'react'
+
 import * as Styles from './Admin.styles'
 import Counter from './Counter'
-import LinkImg from '@assets/img/link.png'
 import enhancedTeams from '../Teams/Teams'
 import PreGameTeams from '../Teams/PreGameTeams'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux/es/exports'
 import { AliasUiContainer } from '@components/common/common.styles'
 import CopySvg from '@assets/img/copy.svg'
-import {
-  statusChange,
-  timeChange,
-  pointsChange,
-  modeChange,
-  linkChange,
-} from '@store/alias/mainSlice'
 import { useTranslation } from 'react-i18next'
-import { useGetLobbyDataQuery } from '@store/api/apiSlice'
+import {
+  useGetPreGameDataQuery,
+  useSendDataMutation,
+} from '@store/api/apiSlice'
+import { modeType } from '@models/alias.model'
 const AdminTeams = enhancedTeams(PreGameTeams)
+import { timeChange, pointsChange, modeChange } from '@store/api/actions'
 
 export default function AdminUi() {
   const { t } = useTranslation()
-  const { data } = useGetLobbyDataQuery()
-  const settings = useSelector(state => state.alias.settings)
-  const mods = { easy: t('easy'), medium: t('medium'), hard: t('hard') }
-  let timer
-  const dispatch = useDispatch()
-  const link =
-    'https://gslayers.ru/alias?lobby=' +
-    useSelector(state => state.alias.lobbyId)
+  const { data } = useGetPreGameDataQuery()
+  const [sendData] = useSendDataMutation()
+  const mods: modeType = {
+    easy: t('easy'),
+    medium: t('medium'),
+    hard: t('hard'),
+  }
+  let timer: ReturnType<typeof setTimeout>
+  const link = 'https://gslayers.ru/alias?lobby=' + data.lobbyId
   const [animateCopy, setAnimateCopy] = useState(false)
 
-  function handleClick() {
-    navigator.clipboard.writeText(link)
+  async function handleClick() {
+    await navigator.clipboard.writeText(link)
     setAnimateCopy(true)
     clearTimeout(timer)
     timer = setTimeout(() => setAnimateCopy(false), 2500)
   }
+
   return (
     <AliasUiContainer>
       <Styles.AdminGroup>
@@ -52,11 +49,11 @@ export default function AdminUi() {
       </Styles.AdminGroup>
 
       <Styles.EditContainer color="orange">
-        {Object.keys(mods).map(i => (
+        {Object.keys(mods).map((i: keyof modeType) => (
           <Styles.Mode
             key={mods[i]}
-            active={settings.mode === i}
-            onClick={() => dispatch(modeChange(i))}
+            active={data.settings.mode === i}
+            onClick={() => sendData(modeChange(i))}
           >
             {mods[i]}
           </Styles.Mode>

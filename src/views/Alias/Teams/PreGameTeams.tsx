@@ -1,23 +1,28 @@
 import React, { useEffect } from 'react'
 import * as Styles from './Teams.styles'
-import { useDispatch, useSelector } from 'react-redux/es/exports'
-import { selectAllPlayers } from '@store/alias/mainSlice'
+
 import TeamsAdmin from './TeamsAdmin'
-import { addTeam, statusChange } from '@store/alias/mainSlice'
-import { GameButton } from '@components'
+import { GameButton } from '@components/index'
 import { useTranslation } from 'react-i18next'
+import {
+  useGetPreGameDataQuery,
+  useSendDataMutation,
+} from '@store/api/apiSlice'
+import { addTeam, statusChange } from '@store/api/actions'
 
 export default function PreGameTeams() {
-  const players = useSelector(selectAllPlayers)
-  const teams = useSelector(state => state.alias.teams)
-  const currentPlayer = useSelector(state => state.alias.currentPlayer)
-  const admin = useSelector(state => state.alias.admin)
-  const dispatch = useDispatch()
+  const { data } = useGetPreGameDataQuery()
+  const [sendData] = useSendDataMutation()
+  const players = data.players
+  const teams = data.teams
+  const currentPlayer = data.currentPlayer
+  const admin = data.admin
   const { t } = useTranslation()
+
   return (
     <>
       <TeamsAdmin />
-      <Styles.AddTeam onClick={() => dispatch(addTeam())}>
+      <Styles.AddTeam onClick={() => sendData(addTeam())}>
         {t('add')}
       </Styles.AddTeam>
 
@@ -26,7 +31,7 @@ export default function PreGameTeams() {
       teams.every(item =>
         Object.values(item.players).every(item => item !== null)
       ) ? (
-        <div onClick={() => dispatch(statusChange('endRound'))}>
+        <div onClick={() => sendData(statusChange('endRound'))}>
           <GameButton background="red">{t('start')}</GameButton>
         </div>
       ) : null}

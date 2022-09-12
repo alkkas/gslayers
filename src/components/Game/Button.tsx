@@ -17,8 +17,11 @@ const StyledButton = styled.button`
     padding: 20px 80px;
   }
 `
-
-export default function Button({ children, background, click }) {
+type buttonProps = {
+  background?: string
+  click?: () => void
+}
+const Button: React.FC<buttonProps> = ({ children, background, click }) => {
   return (
     <StyledButton background={background} onClick={click}>
       {children}

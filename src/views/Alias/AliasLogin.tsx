@@ -1,69 +1,50 @@
 import React, { useState, useEffect } from 'react'
-import { getData } from '@services/alias/sendReq'
 import * as Styles from './Alias.styles'
 import { setValues, getValue } from '@services/localStorage'
 import { useSearchParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-
-import {
-  statusChange,
-  changeCurrentPlayer,
-  playerJoin,
-  setRules,
-  setPlayerFields,
-  setAdminFields,
-} from '@store/alias/mainSlice'
-
 import { useTranslation } from 'react-i18next'
-import { useGetLobbyDataQuery, useSendDataMutation } from '@store/api/apiSlice'
+import {
+  useCreateLobbyMutation,
+  useJoinLobbyMutation,
+} from '@store/api/apiSlice'
 
-export default function AliasPopUp() {
-  const { data } = useGetLobbyDataQuery()
-  const [sendData, { isLoading }] = useSendDataMutation()
-  const prevValue = getValue('name')
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [lobby, setLobby] = useState(null)
+const AliasLogin = (): JSX.Element => {
+  const [joinLobby] = useJoinLobbyMutation()
+  const [createLobby] = useCreateLobbyMutation()
+
+  const prevValue: string = getValue('name')
+  const [searchParams] = useSearchParams()
+  const [lobby, setLobby] = useState<string | null>(null)
   const [value, setValue] = useState(prevValue ? prevValue : '')
   const { t } = useTranslation()
+
   useEffect(() => {
     setLobby(searchParams.get('lobby'))
   }, [])
-
-  async function joinLobby() {
+  async function handleClick() {
     if (value.match(/^(?!\s*$).+/)) {
       setValues({ name: value })
-
       if (lobby) {
-        const data = await getData(
-          `https://api.gslayers.ru/alias/?lobby=${lobby}&name=${value}`
-        )
-        console.log(data)
-        if (data.exist) {
-          //add data to store
-        } else {
-          //show that lobby doesn't exist
-        }
+        await joinLobby({ name: value, lobbyId: lobby }).unwrap()
       } else {
-        const data = await getData(
-          `https://api.gslayers.ru/alias/?newLobby=true&name=${value}`
-        )
-        console.log(data)
-        dispatch(setAdminFields(data))
-        dispatch(statusChange('preGame'))
-        //show admin panel
+        await createLobby(value).unwrap()
       }
     }
   }
+
   return (
     <Styles.PopUpWrapper>
       <Styles.PopUpInput
         value={value}
-        onChange={event => setValue(event.target.value)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setValue(event.target.value)
+        }
         placeholder={`${t('name')}...`}
       />
-      <Styles.PopUpButton onClick={joinLobby}>
+      <Styles.PopUpButton onClick={handleClick}>
         {lobby ? t('join') : t('create')}
       </Styles.PopUpButton>
     </Styles.PopUpWrapper>
   )
 }
+export default AliasLogin

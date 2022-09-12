@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
 import {
-  selectAllPlayers,
   teamNameChange,
   teamLeave,
   teamJoin,
-  selectPlayer,
   deleteTeam,
-} from '@store/alias/mainSlice'
+} from '@store/api/actions'
 import {
   PlayerItem,
   PlayerJoin,
@@ -20,19 +17,26 @@ import {
   StyledCanWrapper,
 } from './Teams.styles'
 import { useTranslation } from 'react-i18next'
+import {
+  useGetPreGameDataQuery,
+  useSendDataMutation,
+} from '@store/api/apiSlice'
+import { teamType } from '@models/alias.model'
 
 export default function TeamsAdmin() {
-  const teams = useSelector(state => state.alias.teams)
-  const admin = useSelector(state => state.alias.admin)
-  const players = useSelector(selectAllPlayers)
-  const playerId = useSelector(state => state.alias.currentPlayer)
-  const playerTeam = players.find(i => i.id === playerId)
-  const currentPlayer = useSelector(state => selectPlayer(state, playerId))
-  const dispatch = useDispatch()
+  const [sendData] = useSendDataMutation()
+  const { data } = useGetPreGameDataQuery()
+  const teams = data.teams
+  const admin = data.admin
+  const players = data.players
+  const playerId = data.currentPlayer
+  const currentPlayerObj = players.find(i => i.id === playerId)
+
   const { t } = useTranslation()
-  function TeamTitleChange(team, index, event) {
-    if (admin || playerTeam.team === team.id) {
-      dispatch(teamNameChange({ index, value: event.target.value }))
+
+  function TeamTitleChange(team: teamType, value: string) {
+    if (admin || currentPlayerObj.team === team.id) {
+      sendData(teamNameChange({ id: team.id, value }))
     }
   }
 
@@ -40,18 +44,18 @@ export default function TeamsAdmin() {
     <TeamItems>
       {teams.map((item, index) => {
         return (
-          <TeamItem>
+          <TeamItem key={item.id}>
             <TeamHeader>
               <TeamTitle
                 value={item.name}
                 placeholder={`${t('teamN')}...`}
-                onChange={event => TeamTitleChange(item, index, event)}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  TeamTitleChange(item, event.target.value)
+                }
               />
               {admin ||
               Object.values(item.players).every(value => value === null) ? (
-                <StyledCanWrapper
-                  onClick={() => dispatch(deleteTeam({ id: item.id }))}
-                >
+                <StyledCanWrapper onClick={() => sendData(deleteTeam(item.id))}>
                   <StyledCan />
                 </StyledCanWrapper>
               ) : null}
@@ -62,27 +66,10 @@ export default function TeamsAdmin() {
                 return id === null ? (
                   <PlayerItem empty={true}>
                     <span>{t('empty')}</span>
-
                     <PlayerJoin
-                      onClick={() => {
-                        if (currentPlayer.team) {
-                          let teamIndex = null
-                          teams.forEach((item, index) => {
-                            if (item.id === currentPlayer.team) {
-                              teamIndex = index
-                            }
-                          })
-                          const players = teams[teamIndex].players
-                          dispatch(
-                            teamLeave({
-                              playerIndex:
-                                players[0] === currentPlayer.id ? 0 : 1,
-                              teamIndex,
-                            })
-                          )
-                        }
-                        dispatch(teamJoin({ playerIndex, teamIndex: index }))
-                      }}
+                      onClick={() =>
+                        sendData(teamJoin({ playerId: id, teamId: item.id }))
+                      }
                     />
                   </PlayerItem>
                 ) : (
@@ -91,7 +78,7 @@ export default function TeamsAdmin() {
                     {admin === playerId || playerId === id ? (
                       <PlayerRemove
                         onClick={() => {
-                          dispatch(teamLeave({ playerIndex, teamIndex: index }))
+                          sendData(teamLeave({ playerId: id, teamId: item.id }))
                         }}
                       />
                     ) : null}

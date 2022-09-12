@@ -1,4 +1,4 @@
 import Home from './Home/Home'
-import Alias from './Alias/Alias'
+import AliasGame from './Alias/AliasGame'
 import Jeopardy from './Jeopardy/Jeopardy'
-export { Home, Alias, Jeopardy }
+export { Home, AliasGame, Jeopardy }

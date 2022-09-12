@@ -6,13 +6,21 @@ import {
   useSendDataMutation,
 } from '@store/api/apiSlice'
 
-export default function Counter({ type, changeValue }) {
+type CounterProps = {
+  type: 'points' | 'time'
+  changeValue: (arg: number) => { type: string; payload: number }
+}
+
+export default function Counter({
+  type,
+  changeValue,
+}: CounterProps): JSX.Element {
   const { data } = useGetPreGameDataQuery()
   const [sendData] = useSendDataMutation()
   const settings = data.settings
+  const value = settings[type]
 
   const input = useRef(null)
-  const dispatch = useDispatch()
 
   function checkValue() {
     const focused = document.activeElement
@@ -22,14 +30,15 @@ export default function Counter({ type, changeValue }) {
       }
     }
   }
-  function addValue(value) {
+
+  function addValue(value: string | number) {
     if (!isNaN(+value)) {
       if (+value > 180) {
-        dispatch(changeValue(180))
+        sendData(changeValue(180))
       } else if (+value <= 0) {
-        dispatch(changeValue(0))
+        sendData(changeValue(0))
       } else {
-        dispatch(changeValue(+value))
+        sendData(changeValue(+value))
       }
     }
   }
@@ -41,7 +50,7 @@ export default function Counter({ type, changeValue }) {
       document.removeEventListener('keyup', checkValue)
       document.removeEventListener('click', checkValue)
     }
-  })
+  }, [])
 
   return (
     <Styles.Wrapper>

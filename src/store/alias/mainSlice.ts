@@ -5,6 +5,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit'
 export const aliasAdapter = createEntityAdapter()
+
 import { v4 as uuidv4 } from 'uuid'
 import { RootState } from '../store'
 import { stateType } from '@models/alias.model'

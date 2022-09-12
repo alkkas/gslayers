@@ -1,10 +1,10 @@
 import React from 'react'
 import AdminUi from './Admin/AdminUi'
 import PlayerUi from './Player/PlayerUi'
-import { useGetLobbyDataQuery } from '@store/api/apiSlice'
+import { useGetPreGameDataQuery } from '@store/api/apiSlice'
 
-export default function AliasUi() {
-  const { data } = useGetLobbyDataQuery()
+export default function AliasUi(): JSX.Element {
+  const { data } = useGetPreGameDataQuery()
   const isAdmin = data.admin === data.currentPlayer
 
   return <>{isAdmin ? <AdminUi /> : <PlayerUi />}</>

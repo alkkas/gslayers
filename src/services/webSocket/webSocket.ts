@@ -7,6 +7,7 @@ import {
   wordsSettled,
 } from '@store/alias/mainSlice'
 import { isEmpty } from 'lodash'
+import io, { Socket } from 'socket.io-client'
 
 export const debounceObj = {
   entities: {},
@@ -65,13 +66,11 @@ export function startSocket(store, lobbyId) {
   }
 }
 
-let socket: WebSocket
+let socket: Socket
 
-export function getSocket(lobbyId?: string, currentPlayer?: string): WebSocket {
+export function getSocket(): Socket {
   if (!socket) {
-    socket = new WebSocket(
-      `wss://api.gslayers.ru/ws/${lobbyId}_${currentPlayer}/`
-    )
+    socket = io('wss://api.gslayers.ru/alias/ws')
   }
   return socket
 }

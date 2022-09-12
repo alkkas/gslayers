@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MainWrapper } from './App.styles'
-import { Header, Footer } from '@components'
+import { Header, Footer } from '@components/index'
 // import { hot } from 'react-hot-loader/root'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ReactSession } from 'react-client-session'
@@ -10,11 +10,11 @@ function Main() {
   ReactSession.setStoreType('localStorage')
 
   const location = useLocation()
-  const [backgroud, setBackground] = useState('white')
+  const [background, setBackground] = useState('white')
   const dispatch = useDispatch()
   useEffect(() => {
     //dispatch(fetchPlayers())
-    if (location.pathname == '/alias') {
+    if (location.pathname === '/alias') {
       setBackground('purp')
     } else {
       setBackground('white')
@@ -22,7 +22,7 @@ function Main() {
   })
 
   return (
-    <MainWrapper background={backgroud}>
+    <MainWrapper background={background}>
       <Header />
       <Outlet />
       <Footer />

@@ -1,18 +1,23 @@
 import React from 'react'
 import * as Styles from './Player.styles'
-import Teams from '../Teams/Teams'
 import enhancedTeams from '../Teams/Teams'
 import PreGameTeams from '../Teams/PreGameTeams'
-import { useSelector } from 'react-redux'
 import { AliasUiContainer } from '@components/common/common.styles'
 import { useTranslation } from 'react-i18next'
+import { useGetPreGameDataQuery } from '@store/api/apiSlice'
+import { modeType } from '@models/alias.model'
 const PlayerTeams = enhancedTeams(PreGameTeams)
 
-export default function PlayerUi() {
-  const settings = useSelector(state => state.alias.settings)
+export default function PlayerUi(): JSX.Element {
+  const { data } = useGetPreGameDataQuery()
+  const settings = data.settings
   const { t } = useTranslation()
 
-  const mods = { easy: t('easy'), medium: t('medium'), hard: t('hard') }
+  const mods: modeType = {
+    easy: t('easy'),
+    medium: t('medium'),
+    hard: t('hard'),
+  }
 
   return (
     <AliasUiContainer>

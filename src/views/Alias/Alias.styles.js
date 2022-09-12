@@ -6,7 +6,7 @@ import {
   Title,
   Button,
   breakpoints,
-} from '../../components/common/common.styles'
+} from '@components/common/common.styles'
 
 export const AliasWrapper = styled(Wrapper)`
   padding: 0 15px;

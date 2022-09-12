@@ -1,7 +1,9 @@
 export interface NormalizedObjs<T> {
-  entites: { [id: string]: T }
+  entities: { [id: string]: T }
   ids: string[]
 }
+export type modes = 'easy' | 'medium' | 'hard'
+export type statusType = 'preGame' | 'game' | 'endRound' | 'win'
 export interface playerType {
   id: string
   name: string
@@ -18,23 +20,27 @@ export interface teamType {
   guessing: 0 | 1
   explaining: 0 | 1
 }
+export interface modeType {
+  easy: 'простой' | 'easy'
+  medium: 'средний' | 'medium'
+  hard: 'сложный' | 'hard'
+}
 export interface settingsType {
   points: number
   time: number
-  mode: 'easy' | 'medium' | 'hard'
+  mode: modes
 }
-export interface stateType {
-  status:
-    | 'loading'
-    | 'inputName'
-    | 'preGame'
-    | 'game'
-    | 'endRound'
-    | 'win'
-    | 'error'
+export interface preGameTypes {
+  status: statusType
   currentPlayer: string
   admin: string
   lobbyId: string
+  teams: teamType[]
+  players: playerType[]
+  settings: settingsType
+}
+
+export interface gameStateType {
   wordsSettled: boolean
   winner: string
   rounds: number
@@ -44,14 +50,5 @@ export interface stateType {
     skipped: number
     guessed: number
     currentWord: string
-    usedWords: string[]
   }
-  words: string[]
-  settings: {
-    points: number
-    time: number
-    mode: 'easy' | 'medium' | 'hard'
-  }
-  teams: teamType[]
-  players: playerType[]
 }
